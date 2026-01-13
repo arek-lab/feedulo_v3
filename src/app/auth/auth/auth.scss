@@ -1,0 +1,70 @@
+@media (min-width: 769px) {
+  .gradient-custom-3 {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+  }
+}
+section {
+  background-image: radial-gradient(ellipse at 45% 45%, #443a50 5%, transparent 30%),
+    radial-gradient(ellipse at 30% 30%, #443a50 10%, transparent 40%),
+    linear-gradient(to top left, var(--bg-root-color), #111827);
+  height: 100%;
+  width: 100%;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+.fixed-height {
+  min-height: calc(100vh);
+}
+.back-home {
+  position: absolute;
+  cursor: pointer;
+}
+.back-home svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+.back-home::after {
+  content: "←";
+  position: absolute;
+  bottom: -0.2rem;
+  left: 0.6rem;
+}
+.reset {
+  pointer-events: none;
+  cursor: default;
+}
+.alert-wrapper {
+  min-height: 3.8rem;
+}
+.btn-primary {
+  background: var(--logo-orange);
+  border-color: var(--logo-orange);
+}
+.btn-outline-primary {
+  border-color: var(--logo-orange);
+  color: var(--logo-orange)
+}
+.btn-outline-primary:hover,
+.btn-outline-primary:active {
+  background-color: var(--logo-orange);
+  color: #fefefe;
+  border-color: var(--logo-orange);
+}
+.gradient-custom-2 {
+  background:
+  radial-gradient(ellipse at 45% 45%, #443a50 0%, transparent 60%),
+  radial-gradient(ellipse at 30% 30%, #443a50 0%, transparent 70%),
+    linear-gradient(to top left, var(--bg-root-color), #111827);
+  background-size: 200% 200%;
+  background-position: center;
+}
+.logo-color {
+  color: var(--logo-orange);
+}
+.inactive {
+  pointer-events: none;
+  opacity: 0.8;
+}

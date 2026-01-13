@@ -1,0 +1,544 @@
+<form [formGroup]="cvForm" (ngSubmit)="onSubmit()">
+    <div class="action-buttons flex">
+    <!-- <button matButton (click)="accordion().openAll()">Rozwiń</button>
+    <button matButton (click)="accordion().closeAll()">Zwiń</button>
+    <span class="spacer"></span> -->
+    <button type="submit" matButton="tonal">Dane są ok!</button>
+    </div>
+    <mat-accordion class="headers-align" multi>
+        <!-- Dane podstawowe -->
+        <mat-expansion-panel [expanded]="step() === 0" (opened)="setStep(0)" hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title> Dane podstawowe </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <ng-container>
+                    <mat-form-field 
+                    style="display:none; z-index: 0;"
+                    aria-hidden="true"
+                    tabindex="-1"
+                >
+                <!-- HACK: Angular Material 21 MDC keeps form-field padding consistent inside mat-expansion-panel -->
+                    <input matInput>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Imię i nazwisko</mat-label>
+                    <input matInput formControlName="full_name" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Tytuł zawodowy</mat-label>
+                    <input matInput formControlName="professional_title" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Podsumowanie</mat-label>
+                    <textarea 
+                        matInput 
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="3"
+                        formControlName="summary"></textarea>
+                </mat-form-field>
+            </ng-container>
+
+            <mat-action-row>
+            <button matButton type="button" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    <!-- Dane kontaktowe -->
+        <mat-expansion-panel [expanded]="step() === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title> Dane kontaktowe</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <ng-container formGroupName="contact">
+                <mat-form-field 
+                    style="display:none; z-index: 0;"
+                    aria-hidden="true"
+                    tabindex="-1"
+                >
+                <!-- HACK: Angular Material 21 MDC keeps form-field padding consistent inside mat-expansion-panel -->
+                    <input matInput>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Telefon</mat-label>
+                    <input matInput formControlName="phone" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>LinkedIn</mat-label>
+                    <input matInput formControlName="linkedin" />
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label>GitHub</mat-label>
+                    <input matInput formControlName="github" />
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label>Portfolio</mat-label>
+                    <input matInput formControlName="portfolio" />
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label>Lokalizacja</mat-label>
+                    <input matInput formControlName="location" />
+                </mat-form-field>
+
+
+            </ng-container>
+
+            <mat-action-row>
+            <button matButton type="button" (click)="prevStep()">Previous</button>
+            <button matButton type="button" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    <!-- Doswiadczenie zawodowe -->
+        <mat-expansion-panel [expanded]="step() === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title> Doświadczenie zawodowe</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div formArrayName="work_experience">
+
+                @for (exp of workExperience.controls; track $index; let i=$index) {
+                    <div [formGroupName]="i">
+                        <header class="flex">
+                            <h6>Doświadczenie #{{ i +1 }}</h6>
+                            <button matButton type="button" (click)="removeWorkExperience(i)">Usuń</button>
+                        </header>
+                        <ng-container>
+                            <mat-form-field 
+                                style="display:none; z-index: 0;"
+                                aria-hidden="true"
+                                tabindex="-1"
+                            >
+                            <!-- HACK: Angular Material 21 MDC keeps form-field padding consistent inside mat-expansion-panel -->
+                                <input matInput>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Firma</mat-label>
+                                <input matInput formControlName="company" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Stanowisko</mat-label>
+                                <input matInput formControlName="position" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Data rozpoczęcia</mat-label>
+                                <input matInput formControlName="start_date" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Data zakończenia</mat-label>
+                                <input matInput formControlName="end_date" />
+
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Lokalizacja</mat-label>
+                                <input matInput formControlName="location" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Obowiązki (rozdziel przecinkami)</mat-label>
+                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3"
+                                [value]="exp.get('responsibilities')?.value?.join(', ')"
+                                (input)="updateArrayField(exp, 'responsibilities', $event)"></textarea>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Technologie (rozdziel przecinkami)</mat-label>
+                                <input matInput formControlName="location"
+                                [value]="exp.get('technologies')?.value?.join(', ')"
+                                (input)="updateArrayField(exp, 'technologies', $event)"/>
+                            </mat-form-field>
+
+                        </ng-container>
+                        
+                    </div>
+                }
+                    @if (workExperience.length === 0) {
+                            <button matButton type="button" (click)="addWorkExperience()">
+                                Brak doświadczenia zawodowego. Kliknij, aby dodać wpis.
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        }
+                </div>
+                <mat-action-row>
+                <button matButton type="button" (click)="prevStep()">Previous</button>
+                <button matButton type="button" (click)="nextStep()">Next</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        <!-- Edukacja -->
+        <mat-expansion-panel [expanded]="step() === 3" (opened)="setStep(3)" hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title>Edukacja</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div formArrayName="education">
+
+                @for (edu of education.controls; track $index; let i=$index) {
+                    <div [formGroupName]="i">
+                        <header class="flex">
+                            <h6>Edukacja #{{ i +1 }}</h6>
+                            <button matButton type="button" (click)="removeEducation(i)">Usuń</button>
+                        </header>
+                        <ng-container>
+                            <mat-form-field 
+                                style="display:none; z-index: 0;"
+                                aria-hidden="true"
+                                tabindex="-1"
+                            >
+                            <!-- HACK: Angular Material 21 MDC keeps form-field padding consistent inside mat-expansion-panel -->
+                                <input matInput>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Uczelnia/Szkoła</mat-label>
+                                <input matInput formControlName="institution" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-select
+                                    placeholder="Poziom wykształcenia"
+                                    formControlName="degree"
+                                >
+                                    <mat-option
+                                        value="liceum">
+                                        Średnie
+                                    </mat-option>
+                                    <mat-option value="licencjat">Licencjat</mat-option>
+                                    <mat-option value="inżynier">Inżynier</mat-option>
+                                    <mat-option value="magister">Magister</mat-option>
+                                    <mat-option value="doktor">Doktor</mat-option>
+                                    <mat-option value="habilitacja">Habilitacja</mat-option>
+                                    <mat-option value="inne">Inne</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Kierunek</mat-label>
+                                <input matInput formControlName="field_of_study" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Data rozpoczęcia</mat-label>
+                                <input matInput formControlName="start_date" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Data zakończenia</mat-label>
+                                <input matInput formControlName="end_date" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Średnia ocen</mat-label>
+                                <input matInput formControlName="gpa" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Opis</mat-label>
+                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3"
+                                formControlName="description"
+                                ></textarea>
+                            </mat-form-field>
+
+                        </ng-container>
+                        
+                    </div>
+                }
+                
+                <button matButton type="button" (click)="addEducation()">
+                    Kliknij, aby dodać wpis.
+                    <mat-icon>add</mat-icon>
+                </button>
+                    
+                </div>
+                <mat-action-row>
+                <button matButton type="button" (click)="prevStep()">Previous</button>
+                <button matButton type="button" (click)="nextStep()">Next</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        <!-- Umiejętności -->
+        <mat-expansion-panel [expanded]="step() === 4" (opened)="setStep(4)" hideToggle>
+                <mat-expansion-panel-header>
+                <mat-panel-title> Umiejętności </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <ng-container>
+                        <mat-form-field 
+                        style="display:none; z-index: 0;"
+                        aria-hidden="true"
+                        tabindex="-1"
+                    >
+                    <!-- HACK: Angular Material 21 MDC keeps form-field padding consistent inside mat-expansion-panel -->
+                        <input matInput>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Umiejętności techniczne (rozdziel przecinkami)</mat-label>
+                        <textarea 
+                            matInput 
+                            cdkTextareaAutosize
+                            cdkAutosizeMinRows="3"
+                            [value]="cvForm.get('technical_skills')?.value?.join(', ')"
+                            (input)="updateMainArrayField('technical_skills', $event)"></textarea>
+                    </mat-form-field>
+                </ng-container>
+
+                <mat-action-row>
+                <button matButton type="button" (click)="prevStep()">Previous</button>
+                <button matButton type="button" (click)="nextStep()">Next</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        <!-- Języki -->
+        <mat-expansion-panel [expanded]="step() === 5" (opened)="setStep(5)" hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title>Języki</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div formArrayName="languages">
+
+                @for (lang of languages.controls; track $index; let i=$index) {
+                    <div [formGroupName]="i">
+                        <header class="flex">
+                            <button matButton type="button" (click)="removeLanguage(i)">Usuń</button>
+                        </header>
+                        <ng-container>
+                            <mat-form-field 
+                                style="display:none; z-index: 0;"
+                                aria-hidden="true"
+                                tabindex="-1"
+                            >
+                            <!-- HACK: Angular Material 21 MDC keeps form-field padding consistent inside mat-expansion-panel -->
+                                <input matInput>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Język</mat-label>
+                                <input matInput formControlName="language" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-select
+                                    placeholder="Poziom"
+                                    formControlName="proficiency"
+                                >
+                                    <mat-option value="A1">A1</mat-option>
+                                    <mat-option value="A2">A2</mat-option>
+                                    <mat-option value="B1">B1</mat-option>
+                                    <mat-option value="B2">B2</mat-option>
+                                    <mat-option value="C1">C1</mat-option>
+                                    <mat-option value="C2">C2</mat-option>
+                                    <mat-option value="native">Ojczysty</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </ng-container>                  
+                    </div>
+                }       
+                <button matButton type="button" (click)="addLanguage()">
+                    Kliknij, aby dodać język.
+                    <mat-icon>add</mat-icon>
+                </button>
+
+                </div>
+            <mat-action-row>
+            <button matButton type="button" (click)="prevStep()">Previous</button>
+            <button matButton type="button" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+        <!-- Projekty -->
+        <mat-expansion-panel [expanded]="step() === 6" (opened)="setStep(6)" hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title> Projekty </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div formArrayName="projects">
+
+                @for (proj of projects.controls; track $index; let i=$index) {
+                    <div [formGroupName]="i">
+                        <header class="flex">
+                            <h6>Projekt #{{ i +1 }}</h6>
+                            <span class="spacer"></span>
+                            <button matButton type="button" (click)="removeProject(i)">Usuń</button>
+                        </header>
+                        <ng-container>
+                            <mat-form-field 
+                                style="display:none; z-index: 0;"
+                                aria-hidden="true"
+                                tabindex="-1"
+                            >
+                            <!-- HACK: Angular Material 21 MDC keeps form-field padding consistent inside mat-expansion-panel -->
+                                <input matInput>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nazwa projektu</mat-label>
+                                <input matInput formControlName="name" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Rola</mat-label>
+                                <input matInput formControlName="role" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Technologie (rozdziel przecinkami)</mat-label>
+                                <input matInput formControlName="role"
+                                [value]="proj.get('technologies')?.value?.join(', ')"
+                                (input)="updateArrayField(proj, 'technologies', $event)" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>URL projektu</mat-label>
+                                <input matInput formControlName="url" />
+                            </mat-form-field>
+
+                        </ng-container>
+                        
+                    </div>
+                }
+                    @if (workExperience.length === 0) {
+                            <button matButton type="button" (click)="addProject()">Kliknij, aby dodać projekt.
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        }
+                </div>
+                <mat-action-row>
+                <button matButton type="button" (click)="prevStep()">Previous</button>
+                <button matButton type="button" (click)="nextStep()">Next</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+    <!-- Certyfikaty i kursy -->
+        <mat-expansion-panel [expanded]="step() === 7" (opened)="setStep(7)" hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title>Certyfikaty i kursy</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div formArrayName="certifications">
+
+                @for (cert of certifications.controls; track $index; let i=$index) {
+                    <div [formGroupName]="i">
+                        <header class="flex">
+                            <button matButton type="button" (click)="removeCertification(i)">Usuń</button>
+                        </header>
+                        <ng-container>
+                            <mat-form-field 
+                                style="display:none; z-index: 0;"
+                                aria-hidden="true"
+                                tabindex="-1"
+                            >
+                            <!-- HACK: Angular Material 21 MDC keeps form-field padding consistent inside mat-expansion-panel -->
+                                <input matInput>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nazwa</mat-label>
+                                <input matInput formControlName="name" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Organizacja</mat-label>
+                                <input matInput formControlName="issuer" />
+                            </mat-form-field>
+        
+                            <mat-form-field appearance="outline">
+                                <mat-label>Data uzyskania</mat-label>
+                                <input matInput formControlName="date" />
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="outline">
+                                <mat-label>ID certyfikatu (opcjonalnie)</mat-label>
+                                <input matInput formControlName="credential_id" />
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="outline">
+                                <mat-label>URL weryfikacji</mat-label>
+                                <input matInput formControlName="url" />
+                            </mat-form-field>
+                        </ng-container>                  
+                    </div>
+                }       
+                <button matButton type="button" (click)="addCertification()">
+                    Kliknij, aby dodać wpis.
+                    <mat-icon>add</mat-icon>
+                </button>
+
+                </div>
+            <mat-action-row>
+            <button matButton type="button" (click)="prevStep()">Previous</button>
+            <button matButton type="button" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+        <!-- Dodatkowe informacje -->
+        <mat-expansion-panel [expanded]="step() === 8" (opened)="setStep(8)" hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title>Dodatkowe informacje</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <ng-container>
+                <mat-form-field 
+                style="display:none; z-index: 0;"
+                aria-hidden="true"
+                tabindex="-1"
+            >
+                <!-- HACK: Angular Material 21 MDC keeps form-field padding consistent inside mat-expansion-panel -->
+                    <input matInput>
+                </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                    <mat-label>Zainteresowania (rozdziel przecinkami)</mat-label>
+                    <textarea 
+                        matInput 
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="2"
+                        [value]="cvForm.get('interests')?.value?.join(', ')"
+                        (input)="updateMainArrayField('interests', $event)"></textarea>
+                </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                    <mat-label>Wolontariat</mat-label>
+                    <textarea 
+                        matInput 
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="2"
+                        formControlName="volunteer_experience"></textarea>
+                </mat-form-field>
+                
+                    <mat-form-field appearance="outline">
+                    <mat-label>Publikacje (rozdziel przecinkami)</mat-label>
+                    <textarea 
+                        matInput 
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="2"
+                            [value]="cvForm.get('publications')?.value?.join(', ')"
+                        (input)="updateMainArrayField('publications', $event)"></textarea>
+                </mat-form-field>
+                
+                    <mat-form-field appearance="outline">
+                    <mat-label>Nagrody (rozdziel przecinkami)</mat-label>
+                    <textarea 
+                        matInput 
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="2"
+                            [value]="cvForm.get('awards')?.value?.join(', ')"
+                        (input)="updateMainArrayField('awards', $event)"></textarea>
+                </mat-form-field>
+            </ng-container>
+
+                <mat-action-row>
+                <button matButton type="button" (click)="nextStep()">Next</button>
+                </mat-action-row>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <div class="action-buttons flex">
+        <button type="submit" matButton="tonal">Dane są ok!</button>
+        <button type="button" matButton class="mat-tertiary" (click)="onCancel()">Zresetuj dane</button>
+    </div>
+</form>
+

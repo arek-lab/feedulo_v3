@@ -1,0 +1,152 @@
+<app-feature-header 
+  [title]="'Feedback generator'"
+  [description]="'Wybierz styl lub poziom rozwoju pracownika i opisz sytuację, dla której chciałbyś uzyskac informację zwrotną.'" />
+  @if (credits()<1) {
+    <app-credits-error />
+}
+<form 
+    [formGroup]="dataForm" (ngSubmit)="onSubmit()" #formDirective="ngForm" [class.hide]="responseData()">
+   <div class="select-wrapper flex">
+     <mat-form-field class="select-input" appearance="outline">
+            <mat-select 
+                placeholder="Wybierz styl feedbacku"
+                formControlName="leadershipStyle"
+                (selectionChange)="matchDevelopmentLevel()">
+                    <mat-option
+                        value="s1">
+                        S1 instruowanie
+                    </mat-option>
+                    <mat-option
+                        value="s2">
+                        S2 konsultowanie
+                    </mat-option>
+                    <mat-option
+                        value="s3">
+                        S3 wspieranie
+                    </mat-option>
+                    <mat-option
+                        value="s4">
+                        S4 delegowanie
+                    </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="select-input"  appearance="outline">
+            <mat-select
+                placeholder="Wybierz doświadczenie pracownika"
+                formControlName="developmentLevel"
+                (selectionChange)="validateStyle()"
+            >
+                <mat-option 
+                    value="d1">
+                    D1 debiutant
+                </mat-option>
+                <mat-option
+                    value="d2">
+                    D2 uczeń
+                </mat-option>
+                <mat-option
+                    value="d3">
+                    D3 ostrożny
+                </mat-option>
+                <mat-option
+                    value="d4">
+                    D4 expert
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+   </div>
+   <div class="style-alert">
+          {{ styleAlert() }}
+    </div>
+    <mat-form-field 
+      appearance="outline"
+      >
+      <mat-label><span class="label-field">Opisz co chesz przekazać pracownikowi, np. zbyt niska (87%) realizacja planu w sprzedaży</span></mat-label>
+      <textarea
+          formControlName="userQuery"
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="3"></textarea>
+      @if(isLoading()){
+          <div class="feature-loader">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+      }
+      <div style="text-align: right;">
+          <button 
+              matMiniFab aria-label="Submit button"
+              type="submit"
+              [disabled]="dataForm.invalid || isLoading() || credits() < 1">
+              <mat-icon>send</mat-icon>
+          </button>
+      </div> 
+    </mat-form-field>    
+</form>
+<div class="response" [class.hide]="!responseData()">
+      @if (responseData()) {
+      <div class="parameters-wrapper">
+        <div class="response-header-wrapper flex">
+          <h6>Parametry feedbacku</h6>
+          <button matButton (click)="startNewQuery()">
+            <mat-icon>add</mat-icon>
+            Następne
+          </button>
+        </div>
+        <div class="feedback-info">
+          <mat-list class="tight-list">
+            <mat-list-item>
+              <span matListItemTitle class="query-resume">Poziom rozwoju pracownika: <span>{{ (responseData()?.metadata)!.development_level }}</span></span
+              >
+            </mat-list-item>
+            <mat-list-item>
+              <span matListItemTitle  class="query-resume">Wybrany styl liderski:<span
+                [ngClass]="
+                  responseData()!.metadata.applied_style ===
+                  responseData()!.metadata.recommended_style
+                    ? ''
+                    : 'logo-orange'
+                "
+                >{{ (responseData()?.metadata)!.applied_style }}</span
+              ></span
+              >
+            </mat-list-item>
+            <mat-list-item>
+              <span matListItemTitle  class="query-resume">Rekomendowany styl liderski:<span>{{ (responseData()?.metadata)!.recommended_style }}</span></span
+              >
+            </mat-list-item>
+            <mat-list-item>
+              <span class="query-resume">Kredyty:<span>{{ (responseData()?.metadata)!.credits }}</span></span
+              >
+            </mat-list-item>
+            <mat-list-item lines="3">
+              <span matListItemTitle class="description">Opis sytuacji:</span>
+              {{ userQuery() }}
+            </mat-list-item>
+          </mat-list>
+        </div>
+        </div>
+        <div class="response-wrapper">
+          <div
+            class="flex response-header"
+          >
+            <h6>Propozycja feedbacku</h6>
+            @if (!copied()) {
+              <button matIconButton (click)="copyToClipboard()">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            } @else {
+            <div>
+              <span class="copied">skopiowane</span>
+              <button matIconButton disabled>
+                <mat-icon>check</mat-icon>
+              </button>
+            </div>
+            }
+          </div>
+
+          <div class="feedback-content">
+            {{ responseData()?.feedback }}
+          </div>
+        </div>
+      }
+  </div>

@@ -1,0 +1,86 @@
+<app-feature-header [title]="'CV upgrader'" [description]="'Podnieś swoje stare CV na nowy poziom. Dostosuj treść, formę i styl do oczekiwań procesu rekrutacji. Dopasuj do stanowiska, na które aplikujesz'" />
+
+@if (credits()<20) {
+    <app-credits-error />
+}
+
+@if (stream(); as s) {
+        <div class="next-step-wrapper">
+            @if (s.status()?.status == "completed"){
+            <h2>Twoje nowe CV jest już dostępne!</h2>
+            <button 
+                matButton="tonal"
+                (click)="downloadFile()"
+                >Pobierz plik
+            </button>
+            <button 
+                matButton="outlined"
+                (click)="newQuery()"
+                >Nowe 
+            </button>
+            }
+            @if (s.status()?.status !== "completed") {
+            <app-additional-info />
+        }
+        </div>
+      } 
+
+@if (!stream()) {
+<form [formGroup]="dataForm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
+    <div class="inputs-wrapper flex">
+        <div class="upload-wrapper">
+        <input
+        type="file"
+        class="file-input"
+        accept=".docx"
+        (change)="onFileSelected($event)"
+        #fileUpload
+        />
+
+        <div class="upload-controls flex">
+            <button
+                type="button"
+                matButton="tonal"
+                color="primary"
+                (click)="fileUpload.click()"
+            >
+                <mat-icon>upload_file</mat-icon>
+                Wybierz plik CV (.docx)
+            </button>
+
+            <span class="file-name">
+                {{ selectedFileName || 'Nie wybrano pliku' }}
+            </span>
+            </div>
+
+            @if (fileError) {
+                <mat-error  class="custom-error">
+            {{ fileError }}
+            </mat-error>
+            }
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>
+                <span class="label-field">Wklej link do oferty lub ogólną nazwę stanowiska</span>
+            </mat-label>
+            <input matInput formControlName="jobOffer" />
+        </mat-form-field>
+    </div>
+        <div class="button-wrapper">
+            <button 
+                matButton="tonal"
+                type="submit"
+                [disabled]="dataForm.invalid || credits() < 20"
+                >Wyślij
+            </button>
+        </div>
+</form>
+}
+@if (stream(); as s){
+    @if (s.status()?.status == "completed"){
+        <div class="cv-wrapper">
+            <iframe [srcdoc]="html()" width="100%" height="100%" style="border:none" ></iframe>
+        </div>
+    }
+}
+

@@ -1,0 +1,67 @@
+form, .next-step-wrapper {
+    margin: 1rem 5% 0 5%;
+}
+.next-step-wrapper button:last-child {
+    margin-left: 1rem;
+}
+.inputs-wrapper {
+    gap: 1rem;
+    align-items: flex-start;
+    .upload-wrapper, mat-form-field {
+        min-width: 200px;
+        flex: 1
+    }
+}
+@media (max-width: 800px) {
+    .inputs-wrapper {
+        flex-direction: column;
+        .upload-wrapper, mat-form-field {
+        min-width: 100%;
+        }
+    }
+}
+@media (max-width: 400px) {
+    .upload-controls {
+        flex-direction: column;
+    }
+    .button-wrapper {
+        text-align: center;
+    }
+}
+.file-input {
+  display: none;
+}
+
+.upload-wrapper {
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-name {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+}
+
+.custom-error {
+  font-size: 12px;
+  margin-top: 8px;
+  display: block;
+}
+button {
+    min-width: 13.3rem;
+}
+.button-wrapper {
+    margin-top: 1rem;
+}
+.cv-wrapper {
+    margin-top: 1rem;
+    height: 100%;
+}

@@ -1,0 +1,63 @@
+<div class="sidenav-wrapper">
+  <mat-sidenav-container>
+  <mat-sidenav 
+    #sidenav 
+    (click)="sidenav.close()" 
+    [mode]="!(isDesktop$ | async) ? 'over' : 'side'"
+    [opened]="isDesktop$ | async"
+    [fixedInViewport]="isMobile$ | async"
+    [class.border]="isDesktop$ | async">
+    <mat-nav-list class="sidenav-list">
+      @if (isMobile$ | async) {
+        <a matButton disabled class="logo-color">Witaj, 
+          <span class="user"> {{ user()?.email }}!</span>
+          <span class="credits">{{ credits() }}<mat-icon class="icon">paid</mat-icon></span>
+        </a>
+      }
+      <a mat-list-item routerLink="/">
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListItemTitle>Home</span>
+      </a>
+      <a mat-list-item routerLink="/app" class="margin-bottom-lg">
+        <mat-icon matListItemIcon>business_center</mat-icon>
+        <span matListItemTitle>Apps</span>
+      </a>
+      <a mat-list-item [routerLink]="['/','app', 'feedbacks']">
+        <mat-icon matListItemIcon>rocket_launchr</mat-icon>
+        <span matListItemTitle>Feedback Generator</span>
+      </a>
+      <a mat-list-item [routerLink]="['/','app', 'email-generator']">
+        <mat-icon matListItemIcon>mail</mat-icon>
+        <span matListItemTitle>Email Kreator</span>
+      </a>
+      <a mat-list-item [routerLink]="['/','app', 'cv-upgrader']">
+        <mat-icon matListItemIcon>article_person</mat-icon>
+        <span matListItemTitle>CV Upgrader</span>
+      </a>
+      <span class="spacer"></span>
+      <a mat-list-item >
+        <mat-icon matListItemIcon>exit_to_app</mat-icon>
+        <span matListItemTitle>Logout</span>
+      </a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="logo-color">Feedulo Apps</span>
+    <span class="spacer"></span>
+    @if (!(isMobile$| async)) {
+      <a matButton disabled class="logo-color">Witaj, 
+          <span class="user"> {{ user()?.email }}!</span>
+          <span class="credits">{{ credits() }}<mat-icon class="icon">paid</mat-icon></span>
+        </a>
+    }
+  </mat-toolbar>
+
+  <router-outlet />
+
+</mat-sidenav-container>
+</div>

@@ -1,1 +1,92 @@
-/* You can add global styles to this file, and also import other style files */
+
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$red-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+.tight-list {
+  @include mat.list-density(-4); 
+}
+.tight-chips {
+  @include mat.chips-density(-3); 
+}
+:root {
+  --logo-orange: #fb923c;
+  --bg-root-color: #111827;
+  --btn-color: #4338ca;
+  --btn-color-inactive: #4438ca96;
+}
+.b-fonts {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.logo-color {
+  color: var(--logo-orange) !important;
+}
+body {
+  min-height: 100vh;
+  padding: 0 !important;
+}
+.margin-bottom-lg {
+  margin-bottom: 2rem;
+}
+.spacer {
+    flex: 1 1 auto;
+}
+.flex {
+  display: flex;
+}
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+.label-field {
+  font-size: 12px !important;
+}
+.feature-loader {
+    position: absolute;
+    top:5%;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    backdrop-filter: 5px;
+    background-color: #fefefec5;
+    display: flex;
+    align-items: center;
+    z-index: 999;
+}
+
+

@@ -1,0 +1,21 @@
+.label-field {
+  font-size: 12px !important;
+}
+mat-form-field {
+    width: 100%;
+}
+.item-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.item {
+  padding: 4px 8px;
+  font-weight: 500;
+  color: #666;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  word-wrap: break-word;
+  white-space: normal;
+}

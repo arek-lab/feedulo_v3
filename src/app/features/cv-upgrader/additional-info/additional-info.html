@@ -1,0 +1,20 @@
+<div class="wrapper">
+    @if(stream && stream.status()?.status !== "completed") {
+        <h2>Upgrade CV wystartował!</h2>
+        <p>status: {{graphStatus[stream.status()?.status ?? 'unknown']}}</p>
+        <p>kolejny krok: {{ nextNode[stream.status()?.next_node ?? "extract_cv"] }}</p>
+        @if (stream.status()?.hitl_type === "additional_info") {
+            <app-cv-info 
+                [missing_info]="stream.status()?.hitl_data.missing_info?? []" />
+        }
+        @if (stream.status()?.hitl_type === "acceptation" && !isLoading()){
+            <app-accept-data />
+        }
+    }
+    @if(isLoading()) {
+        <div class="loader">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+    }  
+</div>
+

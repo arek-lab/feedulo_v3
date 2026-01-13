@@ -1,0 +1,15 @@
+:host,
+router-outlet {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+}
+:root {
+  --logo-orange: #fb923c;
+  --bg-root-color: #111827;
+  --btn-color: #4338ca;
+  --btn-color-inactive: #4438ca96;
+}
+.logo-color {
+  color: var(--logo-orange);
+}
