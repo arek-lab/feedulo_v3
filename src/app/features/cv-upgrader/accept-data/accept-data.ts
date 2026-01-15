@@ -30,12 +30,12 @@ import { final_html } from './mock';
 })
 export class AcceptData {
   cvForm!: FormGroup;
-  isLoading = false;
 
   private fb = inject(FormBuilder);
   private httpService = inject(HttpService);
   private sseService = inject(SseService);
   private storageService = inject(StorageService);
+  isLoading = this.storageService.isLoading
   finalHtml = this.storageService.finalHtml();
   private sanitizer = inject(DomSanitizer);
   html = this.sanitizer.bypassSecurityTrustHtml(final_html);
@@ -301,7 +301,7 @@ export class AcceptData {
 
   onSubmit(): void {
     if (this.cvForm.valid) {
-      this.isLoading = true;
+      this.isLoading.set(true);
       const formData = this.cvForm.value;
 
       this.httpService
@@ -311,8 +311,11 @@ export class AcceptData {
         })
         .subscribe({
           next: (res) => {
+            this.isLoading.set(false)
           },
-          error: (err) => {},
+          error: (err) => {
+            this.isLoading.set(false)
+          },
         });
     }
   }

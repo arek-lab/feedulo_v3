@@ -6,7 +6,7 @@
 
 @if (stream(); as s) {
         <div class="next-step-wrapper">
-            @if (s.status()?.status == "completed"){
+            @if (s.status()?.status == "completed" && !isLoading()){
             <h2>Twoje nowe CV jest już dostępne!</h2>
             <button 
                 matButton="tonal"
@@ -19,13 +19,13 @@
                 >Nowe 
             </button>
             }
-            @if (s.status()?.status !== "completed") {
+            @if (s.status()?.status !== "completed" && !isLoading()) {
             <app-additional-info />
         }
         </div>
       } 
 
-@if (!stream()) {
+@if (!stream() && !isLoading()) {
 <form [formGroup]="dataForm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
     <div class="inputs-wrapper flex">
         <div class="upload-wrapper">
