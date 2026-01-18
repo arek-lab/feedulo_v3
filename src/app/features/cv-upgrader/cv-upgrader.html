@@ -6,7 +6,7 @@
 
 @if (stream(); as s) {
         <div class="next-step-wrapper">
-            @if (s.status()?.status == "completed" && !isLoading()){
+            @if (s.status()?.status == "completed"){
             <h2>Twoje nowe CV jest już dostępne!</h2>
             <button 
                 matButton="tonal"
@@ -19,7 +19,7 @@
                 >Nowe 
             </button>
             }
-            @if (s.status()?.status !== "completed" && !isLoading()) {
+            @else {
             <app-additional-info />
         }
         </div>

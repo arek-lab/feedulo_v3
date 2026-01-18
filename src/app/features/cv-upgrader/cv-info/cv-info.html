@@ -1,33 +1,35 @@
-<header>
-    <p>Odpowiedź na poniższe pytania ułatwi przygotowanie CV lepiej dostosowanego do oferty. Jeżeli nie możesz dodać uzupełnienia wyślij puste okno.</p>
-    <div class="item-container">
-        @for (item of missing_info(); track $index ){
-            <div class="mat-body-1 item">{{ item }}</div>
-        }
-    </div>
-</header>
-<form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
-    <mat-form-field 
-        appearance="outline"
-        >
-        <mat-label><span class="label-field">Uzupełnij w tym miejscu dodatkowe informacje</span></mat-label>
-        <textarea
-            formControlName="feedback"
-            matInput
-            cdkTextareaAutosize
-            cdkAutosizeMinRows="3"></textarea>
-        <!-- @if(isLoading()){
-            <div class="feature-loader">
-                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </div>
-        } -->
-        <div style="text-align: right;">
-            <button 
-                matMiniFab aria-label="Submit button"
-                type="submit"
-                [disabled]="dataForm.invalid || isLoading()">
-                <mat-icon>send</mat-icon>
-            </button>
-        </div> 
-     </mat-form-field>    
-</form>
+@if (!isLoading()) {
+    <header>
+        <p>Odpowiedź na poniższe pytania ułatwi przygotowanie CV lepiej dostosowanego do oferty. Jeżeli nie możesz dodać uzupełnienia wyślij puste okno.</p>
+        <div class="item-container">
+            @for (item of missing_info(); track $index ){
+                <div class="mat-body-1 item">{{ item }}</div>
+            }
+        </div>
+    </header>
+    <form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+        <mat-form-field 
+            appearance="outline"
+            >
+            <mat-label><span class="label-field">Uzupełnij w tym miejscu dodatkowe informacje</span></mat-label>
+            <textarea
+                formControlName="feedback"
+                matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="3"></textarea>
+            <!-- @if(isLoading()){
+                <div class="feature-loader">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </div>
+            } -->
+            <div style="text-align: right;">
+                <button 
+                    matMiniFab aria-label="Submit button"
+                    type="submit"
+                    [disabled]="dataForm.invalid || isLoading()">
+                    <mat-icon>send</mat-icon>
+                </button>
+            </div> 
+        </mat-form-field>    
+    </form>
+}

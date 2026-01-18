@@ -7,7 +7,7 @@
             <app-cv-info 
                 [missing_info]="stream.status()?.hitl_data.missing_info?? []" />
         }
-        @if (stream.status()?.hitl_type === "acceptation" && !isLoading()){
+        @if (stream.status()?.hitl_type === "acceptation"){
             <app-accept-data />
         }
     }

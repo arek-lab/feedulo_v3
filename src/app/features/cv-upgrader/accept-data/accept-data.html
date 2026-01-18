@@ -1,3 +1,4 @@
+@if (!isLoading()){
 <form [formGroup]="cvForm" (ngSubmit)="onSubmit()">
     <div class="action-buttons flex">
     <!-- <button matButton (click)="accordion().openAll()">Rozwiń</button>
@@ -541,4 +542,4 @@
         <button type="button" matButton class="mat-tertiary" (click)="onCancel()">Zresetuj dane</button>
     </div>
 </form>
-
+}
