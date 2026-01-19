@@ -1,5 +1,12 @@
 <app-feature-header [title]="'CV upgrader'" [description]="'Podnieś swoje stare CV na nowy poziom. Dostosuj treść, formę i styl do oczekiwań procesu rekrutacji. Dopasuj do stanowiska, na które aplikujesz'" />
 
+@if (upgraderError()) {
+    <div class="app-error">
+        {{ upgraderError() }}
+    </div>
+}
+@else {
+
 @if (credits()<20) {
     <app-credits-error />
 }
@@ -76,6 +83,9 @@
         </div>
 </form>
 }
+@else {
+    
+}
 @if (stream(); as s){
     @if (s.status()?.status == "completed"){
         <div class="cv-wrapper">
@@ -84,3 +94,4 @@
     }
 }
 
+}

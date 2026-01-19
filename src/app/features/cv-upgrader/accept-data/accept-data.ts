@@ -36,6 +36,7 @@ export class AcceptData {
   private sseService = inject(SseService);
   private storageService = inject(StorageService);
   isLoading = this.storageService.isLoading
+  acceptDataCompleted = this.storageService.acceptDataCompleted
   finalHtml = this.storageService.finalHtml();
   private sanitizer = inject(DomSanitizer);
   html = this.sanitizer.bypassSecurityTrustHtml(final_html);
@@ -311,9 +312,12 @@ export class AcceptData {
         })
         .subscribe({
           next: (res) => {
-            this.isLoading.set(false)
+            this.acceptDataCompleted.set(true)
           },
           error: (err) => {
+            this.storageService.upgraderError.set(
+              'Wystapił błąd. Spróbuj ponownie.'
+            )
             this.isLoading.set(false)
           },
         });

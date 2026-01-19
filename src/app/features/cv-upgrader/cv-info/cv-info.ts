@@ -29,6 +29,7 @@ export class CvInfo {
   private httpService = inject(HttpService);
   threadId = this.storageService.threadId;
   isLoading = this.storageService.isLoading;
+  missingInfoCompleted = this.storageService.missingInfoCompleted
 
   dataForm = new FormGroup({
     feedback: new FormControl(''),
@@ -42,10 +43,13 @@ export class CvInfo {
     };
     this.httpService.submitHitlFeedback(this.threadId(), requestData).subscribe({
       next: (res) => {
-        this.isLoading.set(false);
+        this.missingInfoCompleted.set(true)
       },
       error: (err) => {
-        this.isLoading.set(false);
+        this.storageService.upgraderError.set(
+              'Wystapił błąd. Spróbuj ponownie.'
+            )
+            this.isLoading.set(false)
       },
     });
   }

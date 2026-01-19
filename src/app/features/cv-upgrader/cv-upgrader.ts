@@ -34,7 +34,8 @@ export class CvUpgrader {
   private fb = inject(FormBuilder);
   private storageService = inject(StorageService);
   private creditsService = inject(Credits)
-  credits = this.creditsService.credits
+  credits = this.creditsService.credits;
+  upgraderError = this.storageService.upgraderError
   isLoading = this.storageService.isLoading;
   selectedFileName: string = '';
   fileError: string = '';

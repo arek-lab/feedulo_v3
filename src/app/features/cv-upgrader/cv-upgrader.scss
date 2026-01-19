@@ -1,6 +1,11 @@
 form, .next-step-wrapper {
     margin: 1rem 5% 0 5%;
 }
+.app-error {
+    width: 90%;
+    margin: 0 5%;
+    color: var(--mat-sys-tertiary);
+}
 .next-step-wrapper button:last-child {
     margin-left: 1rem;
 }

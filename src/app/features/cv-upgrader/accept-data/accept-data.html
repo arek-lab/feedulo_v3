@@ -1,4 +1,4 @@
-@if (!isLoading()){
+@if (!isLoading() && !acceptDataCompleted()){
 <form [formGroup]="cvForm" (ngSubmit)="onSubmit()">
     <div class="action-buttons flex">
     <!-- <button matButton (click)="accordion().openAll()">Rozwiń</button>
