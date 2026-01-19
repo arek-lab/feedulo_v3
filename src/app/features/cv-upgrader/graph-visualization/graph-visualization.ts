@@ -46,6 +46,7 @@ export class GraphVisualization {
     { id: 'collect all data', label: 'Zbieram informacje', x: 700, y: 200, order: 6 },
     { id: 'generate cv structure', label: 'Generuję strukturę HTML', x: 700, y: 80, order: 7 },
     { id: 'add style and optymize', label: 'Stylizuję i optymalizuję', x: 850, y: 140, order: 8 },
+    { id: 'finalize', label: 'Finalizuję i zapisuję PDF', x: 1000, y: 200, order: 9 },
   ];
 
   connections = signal<Connection[]>([
@@ -65,7 +66,10 @@ export class GraphVisualization {
     { x1: 700, y1: 165, x2: 700, y2: 115, active: false, completed: false },
     // collect all data -> generate cv structure
     { x1: 735, y1: 80, x2: 815, y2: 120, active: false, completed: false },
-    // generate cv structure -> add style and optymize (END)
+    // generate cv structure -> add style and optymize
+    { x1: 735, y1: 115, x2: 815, y2: 160, active: false, completed: false },
+    // add style and optymize -> finalize (END)
+    { x1: 885, y1: 140, x2: 965, y2: 180, active: false, completed: false },
   ]);
 
   completedNodes = new Set<string>();
@@ -113,7 +117,6 @@ export class GraphVisualization {
   });
 
   constructor() {
-    // Zwiększony interwał do 8 sekund
     setInterval(() => {
       this.currentFactIndex.update(val => (val + 1) % this.funFacts.length);
     }, 8000);
