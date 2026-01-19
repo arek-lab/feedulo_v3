@@ -12,6 +12,9 @@ import { AdditionalInfo } from './additional-info/additional-info';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Credits } from '../../services/credits';
 import { CreditsError } from '../../layouts/app/credits-error/credits-error';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AuthService } from '../../auth/auth.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-cv-upgrader',
@@ -23,7 +26,8 @@ import { CreditsError } from '../../layouts/app/credits-error/credits-error';
     MatButtonModule,
     MatInputModule,
     AdditionalInfo,
-    CreditsError
+    CreditsError,
+    MatProgressBarModule
   ],
   templateUrl: './cv-upgrader.html',
   styleUrl: './cv-upgrader.scss',
@@ -34,6 +38,8 @@ export class CvUpgrader {
   private fb = inject(FormBuilder);
   private storageService = inject(StorageService);
   private creditsService = inject(Credits)
+  private authService = inject(AuthService)
+  isAuth = toSignal(this.authService.isAuthenticated$)
   credits = this.creditsService.credits;
   upgraderError = this.storageService.upgraderError
   isLoading = this.storageService.isLoading;
