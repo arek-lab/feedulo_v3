@@ -182,4 +182,12 @@ export class GraphVisualization {
   getNodeLabelY(node: GraphNode): number {
     return this.isNodeActive(node.id) || this.isNodeCompleted(node.id) ? 60 : 8;
   }
+
+    getMobileNodeClasses(node: GraphNode): string {
+    const classes = [];
+    if (this.isNodeActive(node.id)) classes.push('active');
+    if (this.isNodeCompleted(node.id)) classes.push('completed');
+    if (this.isNodePending(node.id)) classes.push('pending');
+    return classes.join(' ');
+  }
 }

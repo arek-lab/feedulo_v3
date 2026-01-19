@@ -1,11 +1,12 @@
 @if (isLoading()) {
   <div class="graph-container">
     <div class="graph-header">
-      <!-- <h3>{{ currentStatusMessage() }}</h3> -->
+      <h3>{{ currentStatusMessage() }}</h3>
       <p class="fun-fact">{{ currentFact() }}</p>
     </div>
 
-    <svg class="graph-svg" viewBox="0 0 800 400">
+    <!-- Desktop: Full SVG Graph -->
+    <svg class="graph-svg graph-desktop" viewBox="0 0 800 400">
       <!-- Connections -->
       <g class="connections">
         @for (conn of connections(); track $index) {
@@ -64,6 +65,29 @@
         }
       </g>
     </svg>
+
+    <!-- Mobile: Simple List -->
+    <div class="graph-mobile">
+      @for (node of nodes; track node.id) {
+        <div class="mobile-node" [class]="getMobileNodeClasses(node)">
+          <div class="mobile-node-icon">
+            @if (isNodeCompleted(node.id)) {
+              <span class="icon-check">✓</span>
+            } @else if (isNodeActive(node.id)) {
+              <span class="icon-spinner"></span>
+            } @else {
+              <span class="icon-pending">○</span>
+            }
+          </div>
+          <div class="mobile-node-content">
+            <span class="mobile-node-label">{{ node.label }}</span>
+          </div>
+          @if ($index < nodes.length - 1) {
+            <div class="mobile-connector" [class.active]="isNodeActive(node.id)" [class.completed]="isNodeCompleted(node.id)"></div>
+          }
+        </div>
+      }
+    </div>
 
     <!-- Progress Bar -->
     <div class="progress-container">

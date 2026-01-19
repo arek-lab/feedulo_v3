@@ -44,6 +44,147 @@
   margin-bottom: 1rem;
 }
 
+.graph-desktop {
+  display: block;
+}
+
+.graph-mobile {
+  display: none;
+}
+
+// Mobile Layout - Simple vertical list
+@media (max-width: 768px) {
+  .graph-desktop {
+    display: none;
+  }
+
+  .graph-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .mobile-node {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    padding: 0.75rem 1rem;
+    background: var(--mat-sys-surface);
+    background-opacity: 0.08;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+
+    &.pending {
+      opacity: 0.6;
+    }
+
+    &.active {
+      background: var(--mat-sys-primary);
+      background-opacity: 0.2;
+      border-left: 4px solid var(--mat-sys-primary);
+      box-shadow: 0 0 12px var(--mat-sys-primary);
+    }
+
+    &.completed {
+      background: var(--mat-sys-tertiary);
+      background-opacity: 0.15;
+      border-left: 4px solid var(--mat-sys-tertiary);
+    }
+  }
+
+  .mobile-node-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+
+    .icon-check {
+      color: var(--mat-sys-tertiary);
+      font-weight: bold;
+      animation: scaleIn 0.3s ease;
+    }
+
+    .icon-spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid var(--mat-sys-primary);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .icon-pending {
+      color: var(--mat-sys-on-primary);
+      opacity: 0.4;
+      font-size: 1.5rem;
+    }
+  }
+
+  .mobile-node-content {
+    flex: 1;
+  }
+
+  .mobile-node-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--mat-sys-on-primary);
+    line-height: 1.4;
+  }
+
+  .mobile-node.active .mobile-node-label {
+    font-weight: 700;
+    color: var(--mat-sys-on-primary);
+  }
+
+  .mobile-node.completed .mobile-node-label {
+    font-weight: 600;
+  }
+
+  .mobile-connector {
+    position: absolute;
+    left: 15px;
+    bottom: -8px;
+    width: 3px;
+    height: 8px;
+    background: var(--mat-sys-on-primary);
+    opacity: 0.2;
+    transition: all 0.3s ease;
+
+    &.active {
+      background: var(--mat-sys-primary);
+      opacity: 1;
+      box-shadow: 0 0 8px var(--mat-sys-primary);
+    }
+
+    &.completed {
+      background: var(--mat-sys-tertiary);
+      opacity: 0.6;
+    }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
 // Connections
 .connections {
   line {
