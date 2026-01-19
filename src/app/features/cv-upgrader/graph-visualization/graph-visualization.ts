@@ -76,21 +76,21 @@ export class GraphVisualization {
   currentNode = computed(() => this.stream?.status()?.next_node || '');
 
   funFacts = [
-    '💡 LangGraph pozwala budować złożone workflow AI z wieloma krokami decyzyjnymi',
-    '🚀 Każdy węzeł w grafie może wykonywać niezależne operacje i zwracać różne ścieżki',
-    '🎯 Twoje CV będzie zoptymalizowane pod systemy ATS używane przez rekruterów',
-    '✨ AI analizuje tysiące udanych CV z Twojej branży dla najlepszych wyników',
-    '🔍 Algorytm porównuje Twoje umiejętności z konkretnymi wymaganiami oferty pracy',
-    '📊 Struktura CV jest automatycznie dostosowana do standardów branży IT',
-    '🤖 Warunkowe ścieżki w grafie pozwalają na dynamiczne podejmowanie decyzji',
-    '⚡ FastAPI + LangGraph to połączenie szybkości backendowej i inteligencji AI',
-    '🎨 Generator styli CSS dopasowuje wizualne aspekty CV do najnowszych trendów',
-    '📄 Format PDF jest generowany z zachowaniem pełnej responsywności i czytelności',
-    '🔄 Graf może wykonać pętle (np. tools -> job_description) dla lepszych rezultatów',
-    '🧠 Każdy agent w grafie ma własny kontekst i pamięć poprzednich kroków',
-    '🛠️ Narzędzia internetowe są wywoływane tylko gdy AI uzna to za konieczne',
-    '✅ Human-in-the-loop pozwala Ci kontrolować kluczowe decyzje w procesie',
-    '🚦 StateGraph zarządza przepływem danych między wszystkimi węzłami automatycznie',
+    'LangGraph pozwala budować złożone workflow AI z wieloma krokami decyzyjnymi',
+    'Każdy węzeł w grafie może wykonywać niezależne operacje i zwracać różne ścieżki',
+    'Twoje CV będzie zoptymalizowane pod systemy ATS używane przez rekruterów',
+    'AI analizuje tysiące udanych CV z Twojej branży dla najlepszych wyników',
+    'Algorytm porównuje Twoje umiejętności z konkretnymi wymaganiami oferty pracy',
+    'Struktura CV jest automatycznie dostosowana do standardów branży IT',
+    'Warunkowe ścieżki w grafie pozwalają na dynamiczne podejmowanie decyzji',
+    'FastAPI + LangGraph to połączenie szybkości backendowej i inteligencji AI',
+    'Generator styli CSS dopasowuje wizualne aspekty CV do najnowszych trendów',
+    'Format PDF jest generowany z zachowaniem pełnej responsywności i czytelności',
+    'Graf może wykonać pętle (np. tools -> job_description) dla lepszych rezultatów',
+    'Każdy agent w grafie ma własny kontekst i pamięć poprzednich kroków',
+    'Narzędzia internetowe są wywoływane tylko gdy AI uzna to za konieczne',
+    'Human-in-the-loop pozwala Ci kontrolować kluczowe decyzje w procesie',
+    'StateGraph zarządza przepływem danych między wszystkimi węzłami automatycznie',
   ];
   
   currentFactIndex = signal(0);
