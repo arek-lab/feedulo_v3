@@ -15,6 +15,7 @@ import { CreditsError } from '../../layouts/app/credits-error/credits-error';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthService } from '../../auth/auth.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { GraphVisualization } from './graph-visualization/graph-visualization';
 
 @Component({
   selector: 'app-cv-upgrader',
@@ -27,7 +28,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
     MatInputModule,
     AdditionalInfo,
     CreditsError,
-    MatProgressBarModule
+    MatProgressBarModule,
+    GraphVisualization
   ],
   templateUrl: './cv-upgrader.html',
   styleUrl: './cv-upgrader.scss',

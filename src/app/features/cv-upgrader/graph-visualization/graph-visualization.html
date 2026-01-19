@@ -1,0 +1,76 @@
+@if (isLoading()) {
+  <div class="graph-container">
+    <div class="graph-header">
+      <h3>{{ currentStatusMessage() }}</h3>
+      <p class="fun-fact">{{ currentFact() }}</p>
+    </div>
+
+    <svg class="graph-svg" viewBox="0 0 800 400">
+      <!-- Connections -->
+      <g class="connections">
+        @for (conn of connections(); track $index) {
+          <line 
+            [attr.x1]="conn.x1" 
+            [attr.y1]="conn.y1"
+            [attr.x2]="conn.x2" 
+            [attr.y2]="conn.y2"
+            [class]="getConnectionClasses(conn)"
+          />
+        }
+      </g>
+
+      <!-- Nodes -->
+      <g class="nodes">
+        @for (node of nodes; track node.id) {
+          <g [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
+            
+            <circle 
+              r="35"
+              [class]="getNodeClasses(node)"
+            />
+            
+            <!-- Pulsing ring for active node -->
+            @if (isNodeActive(node.id)) {
+              <circle 
+                r="35"
+                class="pulse-ring"
+              />
+            }
+            
+            <!-- Checkmark for completed -->
+            @if (isNodeCompleted(node.id)) {
+              <text 
+                class="checkmark"
+                text-anchor="middle"
+                dy="8"
+              >✓</text>
+            }
+            
+            <!-- Spinner for active -->
+            @if (isNodeActive(node.id)) {
+              <g class="spinner">
+                <circle cx="0" cy="0" r="15" class="spinner-path"/>
+              </g>
+            }
+            
+            <text 
+              class="node-label"
+              text-anchor="middle"
+              [attr.y]="getNodeLabelY(node)"
+            >
+              {{ node.label }}
+            </text>
+          </g>
+        }
+      </g>
+    </svg>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress()"></div>
+      </div>
+      <span class="progress-text">{{ progress() }}% ukończono</span>
+    </div>
+  </div>
+}
