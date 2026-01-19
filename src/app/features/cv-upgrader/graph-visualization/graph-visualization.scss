@@ -1,41 +1,30 @@
-// Kolorystyka Material Design - Azure & Red
-
-$primary-color: #2196f3; // Azure
-$primary-light: #64b5f6;
-$primary-dark: #1976d2;
-$accent-color: #f44336; // Red
-$accent-light: #ef5350;
-$success-color: #4caf50;
-$background-gradient-start: #1e3a8a;
-$background-gradient-end: #1e40af;
-
 .graph-container {
-  padding: 2rem;
-  background: linear-gradient(135deg, $background-gradient-start 0%, $background-gradient-end 100%);
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--mat-sys-primary-container) 0%, var(--mat-sys-primary) 100%);
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  color: white;
+  color: var(--mat-sys-on-primary);
 }
 
 .graph-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 
   h3 {
-    margin: 0 0 1rem 0;
-    font-size: 1.5rem;
+    margin: 0 0 0.75rem 0;
+    font-size: 1.4rem;
     font-weight: 600;
-    color: white;
+    color: var(--mat-sys-on-primary);
   }
 }
 
 .fun-fact {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   opacity: 0.95;
   font-style: italic;
-  min-height: 2.5rem;
+  min-height: 2rem;
   animation: fadeIn 0.6s ease-in;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--mat-sys-on-primary-container);
 }
 
 @keyframes fadeIn {
@@ -51,26 +40,29 @@ $background-gradient-end: #1e40af;
 
 .graph-svg {
   width: 100%;
-  height: 350px;
-  margin-bottom: 0.3rem;
+  height: 280px;
+  margin-bottom: 1rem;
 }
 
 // Connections
 .connections {
   line {
-    stroke: rgba(255, 255, 255, 0.25);
+    stroke: var(--mat-sys-on-primary-container);
+    stroke-opacity: 0.25;
     stroke-width: 2.5;
     transition: all 0.4s ease;
 
     &.active {
-      stroke: $primary-color;
+      stroke: var(--mat-sys-tertiary);
+      stroke-opacity: 1;
       stroke-width: 3.5;
       animation: flowAnimation 2s infinite;
-      filter: drop-shadow(0 0 8px $primary-light);
+      filter: drop-shadow(0 0 8px var(--mat-sys-tertiary));
     }
 
     &.completed {
-      stroke: rgba($success-color, 0.6);
+      stroke: var(--mat-sys-tertiary-container);
+      stroke-opacity: 0.6;
       stroke-width: 2.5;
     }
   }
@@ -91,26 +83,34 @@ $background-gradient-end: #1e40af;
 // Nodes
 .nodes {
   circle {
-    fill: rgba(255, 255, 255, 0.08);
-    stroke: rgba(255, 255, 255, 0.35);
+    fill: var(--mat-sys-surface);
+    fill-opacity: 0.08;
+    stroke: var(--mat-sys-on-primary);
+    stroke-opacity: 0.35;
     stroke-width: 2.5;
     transition: all 0.4s ease;
 
     &.pending {
-      fill: rgba(255, 255, 255, 0.08);
-      stroke: rgba(255, 255, 255, 0.35);
+      fill: var(--mat-sys-surface);
+      fill-opacity: 0.08;
+      stroke: var(--mat-sys-on-primary);
+      stroke-opacity: 0.35;
     }
 
     &.active {
-      fill: $primary-color;
-      stroke: $primary-light;
+      fill: var(--mat-sys-primary);
+      fill-opacity: 1;
+      stroke: var(--mat-sys-primary-container);
+      stroke-opacity: 1;
       stroke-width: 3.5;
-      filter: drop-shadow(0 0 12px $primary-color);
+      filter: drop-shadow(0 0 12px var(--mat-sys-primary));
     }
 
     &.completed {
-      fill: rgba($success-color, 0.25);
-      stroke: $success-color;
+      fill: var(--mat-sys-tertiary);
+      fill-opacity: 0.25;
+      stroke: var(--mat-sys-tertiary);
+      stroke-opacity: 1;
       stroke-width: 2.5;
     }
   }
@@ -118,7 +118,7 @@ $background-gradient-end: #1e40af;
 
 .pulse-ring {
   fill: none;
-  stroke: $primary-light;
+  stroke: var(--mat-sys-primary-container);
   stroke-width: 3;
   opacity: 0;
   animation: pulse 2.5s infinite;
@@ -137,9 +137,9 @@ $background-gradient-end: #1e40af;
 
 .checkmark {
   font-size: 2rem;
-  fill: white;
+  fill: var(--mat-sys-on-tertiary);
   font-weight: bold;
-  filter: drop-shadow(0 0 4px rgba(76, 175, 80, 0.8));
+  filter: drop-shadow(0 0 4px var(--mat-sys-tertiary));
 }
 
 .spinner {
@@ -148,12 +148,12 @@ $background-gradient-end: #1e40af;
 
 .spinner-path {
   fill: none;
-  stroke: white;
+  stroke: var(--mat-sys-on-primary);
   stroke-width: 3.5;
   stroke-dasharray: 75;
   stroke-dashoffset: 20;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+  filter: drop-shadow(0 0 6px var(--mat-sys-on-primary));
 }
 
 @keyframes rotate {
@@ -163,7 +163,7 @@ $background-gradient-end: #1e40af;
 }
 
 .node-label {
-  fill: white;
+  fill: var(--mat-sys-on-primary);
   font-size: 0.7rem;
   font-weight: 500;
   pointer-events: none;
@@ -173,36 +173,38 @@ $background-gradient-end: #1e40af;
 .nodes circle.active ~ .node-label {
   font-weight: 700;
   font-size: 0.8rem;
-  fill: white;
+  fill: var(--mat-sys-on-primary);
 }
 
 .nodes circle.completed ~ .node-label {
   font-weight: 600;
   font-size: 0.75rem;
-  fill: rgba(255, 255, 255, 0.95);
+  fill: var(--mat-sys-on-primary-container);
 }
 
 // Progress Bar
 .progress-container {
   text-align: center;
+  margin-top: 0.5rem;
 }
 
 .progress-bar {
   width: 100%;
-  height: 10px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 5px;
+  height: 8px;
+  background: var(--mat-sys-surface-variant);
+  background-opacity: 0.15;
+  border-radius: 4px;
   overflow: hidden;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, $primary-color, $primary-light);
-  border-radius: 5px;
+  background: linear-gradient(90deg, var(--mat-sys-primary), var(--mat-sys-primary-container));
+  border-radius: 4px;
   transition: width 0.6s ease;
-  box-shadow: 0 0 15px rgba($primary-color, 0.7);
+  box-shadow: 0 0 15px var(--mat-sys-primary);
   position: relative;
   
   &::after {
@@ -234,6 +236,6 @@ $background-gradient-end: #1e40af;
   font-size: 0.9rem;
   opacity: 0.95;
   font-weight: 500;
-  color: white;
+  color: var(--mat-sys-on-primary);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
