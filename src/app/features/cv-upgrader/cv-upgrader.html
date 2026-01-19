@@ -6,7 +6,8 @@
     </div>
 }
 @else {
-    @if(isLoading()) {
+    @if(isLoading() && !stream()) {
+        <h2>Przygotowujemy nasze zasoby...</h2>
         <div class="loader">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </div>
