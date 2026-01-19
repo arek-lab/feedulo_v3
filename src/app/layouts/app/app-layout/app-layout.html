@@ -9,10 +9,16 @@
     [class.border]="isDesktop$ | async">
     <mat-nav-list class="sidenav-list">
       @if (isMobile$ | async) {
-        <a matButton disabled class="logo-color">Witaj, 
-          <span class="user"> {{ user()?.email }}!</span>
-          <span class="credits">{{ credits() }}<mat-icon class="icon">paid</mat-icon></span>
-        </a>
+        @if(!user()){
+          <a matButton disabled class="logo-color">
+            Logowanie użytkownika...
+          </a>
+        }@else{
+          <a matButton disabled class="logo-color">Witaj, 
+            <span class="user"> {{ user()?.email }}!</span>
+            <span class="credits">{{ credits() }}<mat-icon class="icon">paid</mat-icon></span>
+          </a>
+        }
       }
       <a mat-list-item routerLink="/">
         <mat-icon matListItemIcon>home</mat-icon>
@@ -50,10 +56,16 @@
     <span class="logo-color">Feedulo Apps</span>
     <span class="spacer"></span>
     @if (!(isMobile$| async)) {
-      <a matButton disabled class="logo-color">Witaj, 
-          <span class="user"> {{ user()?.email }}!</span>
-          <span class="credits">{{ credits() }}<mat-icon class="icon">paid</mat-icon></span>
-        </a>
+      @if(!user()){
+          <a matButton disabled class="logo-color">
+            Logowanie użytkownika...
+          </a>
+        }@else{
+          <a matButton disabled class="logo-color">Witaj, 
+            <span class="user"> {{ user()?.email }}!</span>
+            <span class="credits">{{ credits() }}<mat-icon class="icon">paid</mat-icon></span>
+          </a>
+        }
     }
   </mat-toolbar>
 

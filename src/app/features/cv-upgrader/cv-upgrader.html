@@ -7,10 +7,12 @@
 }
 @else {
     @if(isLoading() && !stream()) {
-        <h2>Przygotowujemy nasze zasoby...</h2>
-        <div class="loader">
-                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </div>
+        <div class="loader-wrapper">
+            <h2>Przygotowujemy nasze zasoby...</h2>
+            <div class="loader">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </div>
+        </div>
     } 
 
     @if (credits()<20 && isAuth()) {

@@ -1,4 +1,6 @@
-form, .next-step-wrapper {
+form, .next-step-wrapper,
+.loader-wrapper, .app-error,
+.cv-wrapper {
     margin: 1rem 5% 0 5%;
 }
 .app-error {
@@ -69,5 +71,4 @@ button {
 .cv-wrapper {
     margin-top: 1rem;
     height: 100%;
-    padding: 0 0.3rem;
 }
