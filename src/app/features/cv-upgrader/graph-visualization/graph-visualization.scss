@@ -1,19 +1,77 @@
+// Kolorystyka Material Design - Azure & Red
+
+$primary-color: #2196f3; // Azure
+$primary-light: #64b5f6;
+$primary-dark: #1976d2;
+$accent-color: #f44336; // Red
+$accent-light: #ef5350;
+$success-color: #4caf50;
+$background-gradient-start: #1e3a8a;
+$background-gradient-end: #1e40af;
+
+.graph-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, $background-gradient-start 0%, $background-gradient-end 100%);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.graph-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+  }
+}
+
+.fun-fact {
+  font-size: 0.95rem;
+  opacity: 0.95;
+  font-style: italic;
+  min-height: 2.5rem;
+  animation: fadeIn 0.6s ease-in;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 0.95;
+    transform: translateY(0);
+  }
+}
+
+.graph-svg {
+  width: 100%;
+  height: 350px;
+  margin-bottom: 1.5rem;
+}
+
 // Connections
 .connections {
   line {
-    stroke: rgba(255, 255, 255, 0.2);
-    stroke-width: 2;
-    transition: all 0.3s ease;
+    stroke: rgba(255, 255, 255, 0.25);
+    stroke-width: 2.5;
+    transition: all 0.4s ease;
 
     &.active {
-      stroke: #4ade80;
-      stroke-width: 3;
+      stroke: $primary-color;
+      stroke-width: 3.5;
       animation: flowAnimation 2s infinite;
+      filter: drop-shadow(0 0 8px $primary-light);
     }
 
     &.completed {
-      stroke: rgba(74, 222, 128, 0.5);
-      stroke-width: 2;
+      stroke: rgba($success-color, 0.6);
+      stroke-width: 2.5;
     }
   }
 }
@@ -21,47 +79,49 @@
 @keyframes flowAnimation {
   0%,
   100% {
-    stroke-dasharray: 5, 10;
+    stroke-dasharray: 8, 12;
     stroke-dashoffset: 0;
   }
   50% {
-    stroke-dasharray: 5, 10;
-    stroke-dashoffset: 15;
+    stroke-dasharray: 8, 12;
+    stroke-dashoffset: 20;
   }
 }
 
 // Nodes
 .nodes {
   circle {
-    fill: rgba(255, 255, 255, 0.1);
-    stroke: rgba(255, 255, 255, 0.3);
-    stroke-width: 2;
-    transition: all 0.3s ease;
+    fill: rgba(255, 255, 255, 0.08);
+    stroke: rgba(255, 255, 255, 0.35);
+    stroke-width: 2.5;
+    transition: all 0.4s ease;
 
     &.pending {
-      fill: rgba(255, 255, 255, 0.1);
-      stroke: rgba(255, 255, 255, 0.3);
+      fill: rgba(255, 255, 255, 0.08);
+      stroke: rgba(255, 255, 255, 0.35);
     }
 
     &.active {
-      fill: #4ade80;
-      stroke: #22c55e;
-      stroke-width: 3;
+      fill: $primary-color;
+      stroke: $primary-light;
+      stroke-width: 3.5;
+      filter: drop-shadow(0 0 12px $primary-color);
     }
 
     &.completed {
-      fill: rgba(74, 222, 128, 0.3);
-      stroke: #4ade80;
+      fill: rgba($success-color, 0.25);
+      stroke: $success-color;
+      stroke-width: 2.5;
     }
   }
 }
 
 .pulse-ring {
   fill: none;
-  stroke: #4ade80;
+  stroke: $primary-light;
   stroke-width: 3;
   opacity: 0;
-  animation: pulse 2s infinite;
+  animation: pulse 2.5s infinite;
 }
 
 @keyframes pulse {
@@ -70,7 +130,7 @@
     opacity: 1;
   }
   100% {
-    r: 50;
+    r: 55;
     opacity: 0;
   }
 }
@@ -79,6 +139,7 @@
   font-size: 2rem;
   fill: white;
   font-weight: bold;
+  filter: drop-shadow(0 0 4px rgba(76, 175, 80, 0.8));
 }
 
 .spinner {
@@ -88,10 +149,11 @@
 .spinner-path {
   fill: none;
   stroke: white;
-  stroke-width: 3;
-  stroke-dasharray: 70;
+  stroke-width: 3.5;
+  stroke-dasharray: 75;
   stroke-dashoffset: 20;
   stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
 }
 
 @keyframes rotate {
@@ -102,15 +164,22 @@
 
 .node-label {
   fill: white;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 500;
   pointer-events: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.nodes circle.active ~ .node-label,
-.nodes circle.completed ~ .node-label {
+.nodes circle.active ~ .node-label {
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  fill: white;
+}
+
+.nodes circle.completed ~ .node-label {
+  font-weight: 600;
+  font-size: 0.75rem;
+  fill: rgba(255, 255, 255, 0.95);
 }
 
 // Progress Bar
@@ -120,22 +189,51 @@
 
 .progress-bar {
   width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 5px;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #4ade80, #22c55e);
-  border-radius: 4px;
-  transition: width 0.5s ease;
-  box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+  background: linear-gradient(90deg, $primary-color, $primary-light);
+  border-radius: 5px;
+  transition: width 0.6s ease;
+  box-shadow: 0 0 15px rgba($primary-color, 0.7);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.3), 
+      transparent
+    );
+    animation: shimmer 2s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .progress-text {
-  font-size: 0.85rem;
-  opacity: 0.9;
+  font-size: 0.9rem;
+  opacity: 0.95;
+  font-weight: 500;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }

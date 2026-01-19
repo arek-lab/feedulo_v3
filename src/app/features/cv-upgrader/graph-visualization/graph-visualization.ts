@@ -36,37 +36,57 @@ export class GraphVisualization {
   stream = this.sse.stream;
   isLoading = this.storageService.isLoading;
 
+  // Graf zgodny z FastAPI StateGraph
   nodes: GraphNode[] = [
-    { id: 'extract_cv', label: 'Ekstrakcja CV', x: 100, y: 200, order: 1 },
-    { id: 'job_description', label: 'Opis stanowiska', x: 250, y: 100, order: 2 },
-    { id: 'compare_cv_to_offer', label: 'Porównanie', x: 250, y: 300, order: 3 },
-    { id: 'human review', label: 'Review', x: 400, y: 200, order: 4 },
-    { id: 'collect all data', label: 'Dane', x: 550, y: 100, order: 5 },
-    { id: 'generate cv structure', label: 'Struktura', x: 550, y: 300, order: 6 },
-    { id: 'add style and optymize', label: 'Stylizacja', x: 700, y: 200, order: 7 },
+    { id: 'extract_cv', label: 'Wyciągam dane z CV', x: 100, y: 200, order: 1 },
+    { id: 'job_description', label: 'Opracowuję opis oferty', x: 250, y: 200, order: 2 },
+    { id: 'tools', label: 'Internet', x: 250, y: 80, order: 3 },
+    { id: 'compare_cv_to_offer', label: 'Porównuję CV z ofertą', x: 400, y: 200, order: 4 },
+    { id: 'human review', label: 'Oczekuję feedbacku', x: 550, y: 200, order: 5 },
+    { id: 'collect all data', label: 'Zbieram informacje', x: 700, y: 200, order: 6 },
+    { id: 'generate cv structure', label: 'Generuję strukturę HTML', x: 700, y: 80, order: 7 },
+    { id: 'add style and optymize', label: 'Stylizuję i optymalizuję', x: 850, y: 140, order: 8 },
   ];
 
   connections = signal<Connection[]>([
-    { x1: 135, y1: 200, x2: 215, y2: 120, active: false, completed: false },
-    { x1: 135, y1: 200, x2: 215, y2: 280, active: false, completed: false },
-    { x1: 285, y1: 100, x2: 365, y2: 180, active: false, completed: false },
-    { x1: 285, y1: 300, x2: 365, y2: 220, active: false, completed: false },
-    { x1: 435, y1: 200, x2: 515, y2: 120, active: false, completed: false },
-    { x1: 435, y1: 200, x2: 515, y2: 280, active: false, completed: false },
-    { x1: 585, y1: 100, x2: 665, y2: 180, active: false, completed: false },
-    { x1: 585, y1: 300, x2: 665, y2: 220, active: false, completed: false },
+    // START -> extract_cv
+    { x1: 135, y1: 200, x2: 215, y2: 200, active: false, completed: false },
+    // extract_cv -> job_description
+    { x1: 285, y1: 200, x2: 365, y2: 200, active: false, completed: false },
+    // job_description -> tools (conditional)
+    { x1: 250, y1: 165, x2: 250, y2: 115, active: false, completed: false },
+    // tools -> job_description (loop back)
+    { x1: 285, y1: 80, x2: 285, y2: 165, active: false, completed: false },
+    // job_description -> compare_cv_to_offer (conditional)
+    { x1: 535, y1: 200, x2: 515, y2: 200, active: false, completed: false },
+    // compare_cv_to_offer -> human review
+    { x1: 585, y1: 200, x2: 665, y2: 200, active: false, completed: false },
+    // human review -> collect all data
+    { x1: 700, y1: 165, x2: 700, y2: 115, active: false, completed: false },
+    // collect all data -> generate cv structure
+    { x1: 735, y1: 80, x2: 815, y2: 120, active: false, completed: false },
+    // generate cv structure -> add style and optymize (END)
   ]);
 
   completedNodes = new Set<string>();
   currentNode = computed(() => this.stream?.status()?.next_node || '');
 
   funFacts = [
-    '💡 LangGraph może wykonać setki kroków w jednym procesie',
-    '🚀 Każdy węzeł grafu działa jak mini-agent AI',
-    '🎯 Twoje CV będzie zoptymalizowane pod ATS',
-    '✨ AI analizuje tysiące udanych CV dla najlepszych wyników',
-    '🔍 Porównujemy Twoje umiejętności z wymaganiami oferty',
-    '📊 Struktura CV jest dostosowana do branży IT',
+    '💡 LangGraph pozwala budować złożone workflow AI z wieloma krokami decyzyjnymi',
+    '🚀 Każdy węzeł w grafie może wykonywać niezależne operacje i zwracać różne ścieżki',
+    '🎯 Twoje CV będzie zoptymalizowane pod systemy ATS używane przez rekruterów',
+    '✨ AI analizuje tysiące udanych CV z Twojej branży dla najlepszych wyników',
+    '🔍 Algorytm porównuje Twoje umiejętności z konkretnymi wymaganiami oferty pracy',
+    '📊 Struktura CV jest automatycznie dostosowana do standardów branży IT',
+    '🤖 Warunkowe ścieżki w grafie pozwalają na dynamiczne podejmowanie decyzji',
+    '⚡ FastAPI + LangGraph to połączenie szybkości backendowej i inteligencji AI',
+    '🎨 Generator styli CSS dopasowuje wizualne aspekty CV do najnowszych trendów',
+    '📄 Format PDF jest generowany z zachowaniem pełnej responsywności i czytelności',
+    '🔄 Graf może wykonać pętle (np. tools -> job_description) dla lepszych rezultatów',
+    '🧠 Każdy agent w grafie ma własny kontekst i pamięć poprzednich kroków',
+    '🛠️ Narzędzia internetowe są wywoływane tylko gdy AI uzna to za konieczne',
+    '✅ Human-in-the-loop pozwala Ci kontrolować kluczowe decyzje w procesie',
+    '🚦 StateGraph zarządza przepływem danych między wszystkimi węzłami automatycznie',
   ];
   
   currentFactIndex = signal(0);
@@ -93,9 +113,10 @@ export class GraphVisualization {
   });
 
   constructor() {
+    // Zwiększony interwał do 8 sekund
     setInterval(() => {
       this.currentFactIndex.update(val => (val + 1) % this.funFacts.length);
-    }, 4000);
+    }, 8000);
 
     effect(() => {
       const nextNode = this.stream?.status()?.next_node;
