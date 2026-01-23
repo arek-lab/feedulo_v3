@@ -1,0 +1,110 @@
+form {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 1rem;
+}
+
+mat-error {
+    color: var(--logo-orange);
+    width: 90%;
+    min-height: 2rem;
+    font-size: smaller;
+    display: block;
+    margin: 0.5rem auto 1rem auto;
+}
+mat-form-field, .style-alert, .options-wrapper, 
+.response-container {
+    width: 90%;
+    margin: 0 5%;
+}
+.select-input {
+    flex: 1;
+}
+.label-field {
+  font-size: 12px !important;
+}
+mat-form-field {
+    position: relative;
+}
+.response {
+    display: flex;
+    gap: 2rem;
+    opacity: 1;
+}
+.response-header {
+    align-items: center;
+    justify-content: space-between;
+}
+@media (max-width: 820px) {
+    .response {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .select-wrapper {
+        flex-direction: column;
+    }
+}
+.hide {
+    height: 0;
+    opacity: 0;
+}
+.response-header-wrapper {
+    align-items: center;
+    justify-content: space-between;
+    
+    h6 {
+        margin: 0;
+    }
+}
+
+.options {
+    flex-wrap: wrap;
+    margin: 0.3rem 0 1rem 0;
+    i {
+        cursor: pointer;
+        color: #6c757d;
+        transition: all 0.1s ease;
+        padding: 0.2rem;
+
+        &:hover {
+            color: var(--logo-orange);
+            transform: scale(1.2);
+        }
+
+        &.active {
+            color: var(--logo-orange);
+            transform: scale(1.2);
+        }
+    }
+    mat-radio-button {
+       min-width: 15rem
+    }
+}
+.confidence {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #666;
+    margin-bottom: 0.5rem;
+    
+    .confidence-number {
+        font-weight: 500;
+    }
+}
+.action-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+
+    button {
+        flex: 1;
+    }
+}
+@media (max-width: 600px) {
+    .action-buttons {
+        flex-direction: column;
+
+        button {
+            min-height: 2rem;
+        }
+    }
+}

@@ -1,0 +1,146 @@
+<app-feature-header 
+  [title]="'Text Crafter'"
+  [description]="'Dokonaj edycji tekstu według nowych oczekiwań, osiągnij najwyższą jakość bez pisania promptów'" />
+
+  @if (credits()<1) {
+    <app-credits-error />
+}
+<form 
+    [formGroup]="dataForm"
+    (ngSubmit)="onSubmit()" 
+    #formDirective="ngForm" 
+    [class.hide]="responseData()">
+    <div class="select-wrapper flex">
+        <mat-form-field appearance="outline">
+            <mat-label for="intent">Co chcesz zrobić?</mat-label>
+            <mat-select 
+                id="intent" 
+                formControlName="intent"
+                (selectionChange)="updateSubcategory(dataForm.get('intent')?.value!)"
+                >
+                @for (catKey of categories; track catKey) {
+                    <mat-option [value]="catKey">
+                        {{ categoryMap[catKey].label }}
+                    </mat-option>
+                    }
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label for="subcategory">W jaki sposób?</mat-label>
+            <mat-select 
+                id="subcategory" 
+                formControlName="subcategory"
+                (selectionChange)="setSubcategorySignal(dataForm.get('subcategory')?.value!)"
+                >
+                @for (sub of availableSubcategories; track sub.value) {
+                    @if(sub.value === 'audience_adaptation' || sub.value === 'platform_adaptation'){
+                        <mat-option [value]="sub.value">
+                          {{ sub.label }}
+                        </mat-option>
+          
+                    }@else {
+                      <mat-option [value]="sub.value">
+                          {{ sub.label }}
+                      </mat-option>
+                    }
+                    
+                    }
+            </mat-select>
+        </mat-form-field>
+    </div>
+     @if(currentSubcategory() === "audience_adaptation" ){
+          <div class="options-wrapper">
+            <mat-label for="options">Wskaż grupę docelową</mat-label>
+          <mat-radio-group formControlName="options" class="options flex">
+            @for(type of audienceTypes; track type) {
+              <mat-radio-button [value]="type.value">{{ type.label }}</mat-radio-button>
+            }
+          </mat-radio-group>
+          </div>
+        }
+        @if(currentSubcategory() === "platform_adaptation" ){
+          <div class="options-wrapper">
+            <mat-label>Wybierz platformę, na której chcesz publikować</mat-label>
+            <div class="options flex">
+              @for(type of platformAdaptationTypes; track type) {
+                <i 
+                (click)="selectPlatform(type.value)"
+                [class]="'bi ' + type.label + ' me-3' + ' platform-icon'" 
+                [class.active]="selectedPlatform() === type.value"
+                style="font-size: 1.2rem;"></i>
+              }
+            </div>
+          </div>
+        }
+    <mat-form-field 
+      appearance="outline"
+      >
+      <mat-label><span class="label-field">Tutaj wklej tekst do edycji</span></mat-label>
+      <textarea
+          formControlName="original_text"
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="3"></textarea>
+      @if(isLoading()){
+          <div class="feature-loader">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+      }
+      <div style="text-align: right;">
+          <button 
+              matMiniFab aria-label="Submit button"
+              type="submit"
+              [disabled]="dataForm.invalid || isLoading() || credits() < 1">
+              <mat-icon>send</mat-icon>
+          </button>
+      </div> 
+    </mat-form-field>    
+
+</form>
+
+<div class="response-container" [class.hide]="!responseData()">
+  <div class="response">
+      @if (responseData()) {
+        <div class="response-wrapper">
+          <div
+            class="flex response-header"
+          >
+            <h6>Proozycja nowej wersji tekstu</h6>
+            @if (!copied()) {
+              <button matIconButton (click)="copyToClipboard()">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            } @else {
+            <div>
+              <span class="copied">skopiowane</span>
+              <button matIconButton disabled>
+                <mat-icon>check</mat-icon>
+              </button>
+            </div>
+            }
+          </div>
+          <div class="confidence">
+            Ocena trafności edycji przez AI: <span class="confidence-number">{{ responseData()?.confidence | percent:'1.0-0' }}</span>
+          </div>
+          <div class="feedback-content">
+            {{ responseData()?.text }}
+          </div>
+        </div>
+      }
+  </div>
+  <div class="action-buttons">
+    <button matButton="filled" (click)="startNewQuery()">
+        <mat-icon>abc</mat-icon>
+        Nowy tekst
+    </button>
+    <button matButton="outlined" (click)="editOriginal()">
+        <mat-icon>text_rotation_none</mat-icon>
+        Jeszcze raz
+    </button>
+    <button matButton="outlined" (click)="editProposal()">
+        <mat-icon>text_rotation_angleup</mat-icon>
+        Modyfikuj propozycję
+    </button>
+  </div>
+</div>

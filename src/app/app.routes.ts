@@ -8,6 +8,7 @@ import { EmailGenerator } from './features/email-generator/email-generator';
 import { CvUpgrader } from './features/cv-upgrader/cv-upgrader';
 import { Auth } from './auth/auth/auth';
 import { authGuard } from './auth/auth.guard';
+import { TextCraft } from './features/text-craft/text-craft';
 
 export const routes: Routes = [
   // ===== PUBLIC =====
@@ -30,6 +31,7 @@ export const routes: Routes = [
       { path: 'feedbacks', component: Feedbacks },
       { path: 'email-generator', component: EmailGenerator },
       { path: 'cv-upgrader', component: CvUpgrader },
+      { path: 'text-craft', component: TextCraft }
     ],
   },
   { path: '**', redirectTo: '' },
