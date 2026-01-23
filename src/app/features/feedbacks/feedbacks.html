@@ -1,7 +1,7 @@
 <app-feature-header 
   [title]="'Feedback generator'"
   [description]="'Wybierz styl lub poziom rozwoju pracownika i opisz sytuację, dla której chciałbyś uzyskac informację zwrotną.'" />
-  @if (credits()<1) {
+  @if (credits()<1 && isAuth()) {
     <app-credits-error />
 }
 <form 

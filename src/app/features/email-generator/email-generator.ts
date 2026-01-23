@@ -14,6 +14,8 @@ import { MatListModule } from '@angular/material/list';
 import { FeatureHeader } from '../../layouts/app/feature-header/feature-header';
 import { Credits } from '../../services/credits';
 import { CreditsError } from '../../layouts/app/credits-error/credits-error';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { AuthService } from '../../auth/auth.service';
 
 
 @Component({
@@ -42,6 +44,8 @@ export class EmailGenerator {
   credits = this.creditsService.credits
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
   isLoading = signal(false);
+  private authService = inject(AuthService)
+  isAuth = toSignal(this.authService.isAuthenticated$)
   responseData = signal<ResponseEmailModel | null>(null);
   choosenStyle = signal<ActualLabel | null>(null);
   userRequest = signal<string | null>(null);

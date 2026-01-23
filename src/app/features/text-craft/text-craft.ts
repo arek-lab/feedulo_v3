@@ -15,6 +15,8 @@ import { CommonModule, PercentPipe } from '@angular/common';
 import { CreditsError } from '../../layouts/app/credits-error/credits-error';
 import { FeatureHeader } from '../../layouts/app/feature-header/feature-header';
 import { Credits } from '../../services/credits';
+import { AuthService } from '../../auth/auth.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-text-craft',
@@ -42,6 +44,8 @@ export class TextCraft {
   private httpService = inject(Http)
   private creditsService = inject(Credits)
    @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
+   private authService = inject(AuthService)
+  isAuth = toSignal(this.authService.isAuthenticated$)
   credits = this.creditsService.credits
   isLoading = signal(false)
   copied = signal(false);

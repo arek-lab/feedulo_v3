@@ -14,6 +14,8 @@ import { MatListModule } from '@angular/material/list';
 import { FeatureHeader } from '../../layouts/app/feature-header/feature-header';
 import { Credits } from '../../services/credits';
 import { CreditsError } from '../../layouts/app/credits-error/credits-error';
+import { AuthService } from '../../auth/auth.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 const mock: LLMResponse = {
   feedback:
@@ -59,6 +61,8 @@ export class Feedbacks {
   private fb = inject(FormBuilder);
   private creditsService = inject(Credits)
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
+  private authService = inject(AuthService)
+  isAuth = toSignal(this.authService.isAuthenticated$)
   styleAlert = signal<String | null>(null);
   responseData = signal<LLMResponse | null>(null);
   userQuery = signal<string | null>(null);

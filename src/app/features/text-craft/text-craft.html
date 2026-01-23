@@ -2,7 +2,7 @@
   [title]="'Text Crafter'"
   [description]="'Dokonaj edycji tekstu według nowych oczekiwań, osiągnij najwyższą jakość bez pisania promptów'" />
 
-  @if (credits()<1) {
+  @if (credits()<1 && isAuth()) {
     <app-credits-error />
 }
 <form 

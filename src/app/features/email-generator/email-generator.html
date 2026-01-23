@@ -2,7 +2,7 @@
   [title]="'Kreator e-maili'"
   [description]="'Wybierz styl, którego potrzebujesz i napisz krótko, co ma zawierać mail.'" />
 
-  @if (credits()<1) {
+  @if (credits()<1 && isAuth()) {
     <app-credits-error />
 }
 
