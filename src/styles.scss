@@ -42,6 +42,9 @@ body {
   @include mat.chips-density(-3); 
 }
 :root {
+  @include mat.progress-spinner-overrides((
+    active-indicator-color: #fb923c,
+  ));
   --logo-orange: #fb923c;
   --bg-root-color: #111827;
   --btn-color: #4338ca;

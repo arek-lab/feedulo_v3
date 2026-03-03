@@ -1,0 +1,51 @@
+form {
+    width: 90%;
+    margin: 1rem 5% 0 5%;
+    opacity: 1;
+    transition: all 0.3s;
+}
+mat-error {
+    color: var(--logo-orange);
+    width: 90%;
+    min-height: 2rem;
+    font-size: smaller;
+    display: block;
+    margin: 0.5rem auto 1rem auto;
+}
+mat-form-field {
+    width: 100%;
+    margin-top: 1rem;
+    position: relative;
+}
+
+.response {
+    padding: 0 1rem;
+    margin: 0 5%;
+    display: flex;
+    gap: 2rem;
+    opacity: 1;
+}
+.response-header {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hide {
+    height: 0;
+    opacity: 0;
+}
+.action-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+
+    button {
+        margin: 0 10%
+    }
+}
+@media (max-width: 600px) {
+        button {
+            min-height: 2rem;
+            flex:1;
+        }
+    }

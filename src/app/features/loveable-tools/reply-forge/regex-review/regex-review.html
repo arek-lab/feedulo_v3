@@ -1,0 +1,128 @@
+<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+
+  <div class="form-buttons">
+    <span class="selection-summary">
+      Wybrano łącznie: <strong>{{ totalSelected }}</strong> wiadomości
+    </span>
+    <span class="spacer"></span>
+    <button mat-stroked-button type="button" (click)="onClear()">
+      <mat-icon>clear_all</mat-icon>
+      Wyczyść
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="totalSelected === 0">
+      <mat-icon>send</mat-icon>
+      Zatwierdź ({{ totalSelected }})
+    </button>
+  </div>
+
+
+  <mat-tab-group animationDuration="200ms">
+
+    <!-- ─── TAB: KANDYDACI ─── -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">check_circle_outline</mat-icon>
+        Zaakceptowane
+        <mat-chip class="tab-chip" color="primary" highlighted>
+          {{ selectedCandidates.length }} / {{ response.candidates.length }}
+        </mat-chip>
+      </ng-template>
+
+      <div class="tab-content">
+        <mat-selection-list formControlName="selectedCandidates" class="message-list">
+          @for (item of response.candidates; track item._uid ) {
+            <mat-list-option [value]="item" [selected]="true" class="message-option">
+              <div class="option-layout">
+
+                <div class="option-header">
+                  <span class="username">
+                    <mat-icon inline>person_outline</mat-icon>
+                    {{ item.username }}
+                  </span>
+                  <span class="spacer"></span>
+                  @if (item.needs_help_score !== undefined) {
+                    <mat-chip class="score-chip"
+                      [class.score-high]="item.needs_help_score >= 0.7"
+                      [class.score-mid]="item.needs_help_score >= 0.4 && item.needs_help_score < 0.7"
+                      [class.score-low]="item.needs_help_score < 0.4">
+                      Score: {{ item.needs_help_score | number:'1.2-2' }}
+                    </mat-chip>
+                  }
+                </div>
+
+                <p class="message-text">{{ item.message }}</p>
+
+              </div>
+            </mat-list-option>
+            <mat-divider></mat-divider>
+          }
+        </mat-selection-list>
+      </div>
+    </mat-tab>
+
+    <!-- ─── TAB: ODRZUCONE ─── -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">cancel_outline</mat-icon>
+        Odrzucone
+        <mat-chip class="tab-chip" color="warn" highlighted>
+          {{ selectedRejected.length }} / {{ response.rejected.length }}
+        </mat-chip>
+      </ng-template>
+
+      <div class="tab-content">
+        <mat-selection-list formControlName="selectedRejected" class="message-list">
+          @for (item of response.rejected; track item._uid) {
+            <mat-list-option [value]="item" [selected]="false" class="message-option">
+              <div class="option-layout">
+
+                <div class="option-header">
+                  <span class="username">
+                    <mat-icon inline>person_outline</mat-icon>
+                    {{ item.username }}
+                  </span>
+                  <span class="spacer"></span>
+                  @if (item.needs_help_score !== undefined) {
+                    <mat-chip class="score-chip"
+                      [class.score-high]="item.needs_help_score >= 0.7"
+                      [class.score-mid]="item.needs_help_score >= 0.4 && item.needs_help_score < 0.7"
+                      [class.score-low]="item.needs_help_score < 0.4">
+                      Score: {{ item.needs_help_score | number:'1.2-2' }}
+                    </mat-chip>
+                  }
+                </div>
+
+                <p class="message-text"
+                  [matTooltip]="item.auto_reject_reason ?? ''"
+                  [matTooltipDisabled]="!item.auto_reject_reason"
+                  matTooltipPosition="above">
+                  {{ item.message }}
+                </p>
+
+              </div>
+            </mat-list-option>
+            <mat-divider></mat-divider>
+          }
+        </mat-selection-list>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+  <!-- ─── BUTTONS ─── -->
+  <div class="form-buttons">
+    <span class="selection-summary">
+      Wybrano łącznie: <strong>{{ totalSelected }}</strong> wiadomości
+    </span>
+    <span class="spacer"></span>
+    <button mat-stroked-button type="button" (click)="onClear()">
+      <mat-icon>clear_all</mat-icon>
+      Wyczyść
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="totalSelected === 0">
+      <mat-icon>send</mat-icon>
+      Zatwierdź ({{ totalSelected }})
+    </button>
+  </div>
+
+</form>

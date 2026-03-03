@@ -1,0 +1,13 @@
+/* error-display.component.scss */
+.error-card {
+  background-color: #fdecea; /* lekko czerwone tło */
+  color: #b00020;
+  padding: 16px;
+  margin: 8px 5%;
+}
+
+.error-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

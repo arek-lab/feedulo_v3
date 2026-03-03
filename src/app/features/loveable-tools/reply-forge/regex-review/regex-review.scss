@@ -1,0 +1,146 @@
+/* review-form.component.scss */
+
+.tab-icon {
+  margin-right: 6px;
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+.tab-chip {
+  margin-left: 8px;
+  font-size: 11px;
+  height: 20px;
+  min-height: 20px;
+  padding: 0 8px;
+}
+
+.tab-content {
+  padding: 0;
+}
+
+.message-list {
+  padding: 0 !important;
+}
+
+.message-option {
+  height: auto !important;
+  padding: 12px 16px !important;
+
+  ::ng-deep .mdc-list-item__content {
+    width: 100%;
+  }
+}
+
+.option-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.option-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.username {
+  font-weight: 500;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--mat-sys-on-surface);
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: var(--mat-sys-primary);
+  }
+}
+
+.timestamp {
+  font-size: 11px;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.chips {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.flag-chip {
+  font-size: 11px;
+  height: 22px;
+  min-height: 22px;
+  padding: 0 8px;
+  background: transparent;
+  border: 1px solid var(--mat-sys-outline-variant);
+}
+
+.reject-reason-chip {
+  font-size: 11px;
+  height: 22px;
+  padding: 0 8px;
+  background: color-mix(in srgb, var(--mat-sys-error) 10%, transparent);
+  color: var(--mat-sys-error);
+  cursor: help;
+}
+
+.score-chip {
+  font-size: 11px;
+  height: 22px;
+  padding: 0 8px;
+
+  &.score-high  { background: color-mix(in srgb, #2e7d32 12%, transparent); color: #2e7d32; }
+  &.score-mid   { background: color-mix(in srgb, #f57c00 12%, transparent); color: #e65100; }
+  &.score-low   { background: color-mix(in srgb, var(--mat-sys-error) 10%, transparent); color: var(--mat-sys-error); }
+}
+
+.message-text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--mat-sys-on-surface-variant);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.form-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  flex-wrap: wrap;
+}
+
+.selection-summary {
+  font-size: 13px;
+  color: var(--mat-sys-on-surface-variant);
+}
+.message-option {
+  height: auto !important;
+  min-height: 48px;
+  padding: 8px 0;   
+
+  ::ng-deep .mdc-list-item__content {
+    white-space: normal !important; 
+  }
+}
+
+.message-text {
+  white-space: normal;
+  word-break: break-word; 
+  margin: 4px 0 0 0; 
+  line-height: 1.4; 
+}

@@ -1,0 +1,120 @@
+<div class="results-wrapper">
+  <button matButton="outlined" (click)="onNew()">
+      <mat-icon>start</mat-icon>
+      Nowy proces
+    </button>
+  <mat-tab-group>
+
+    <!-- ─── TAB: LEADS ─── -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">trending_up</mat-icon>
+        Leady
+        <mat-chip class="tab-chip" color="primary" highlighted>
+          {{ graphResponse()!.leads.length }}
+        </mat-chip>
+      </ng-template>
+
+      <div class="tab-content">
+        @for (item of graphResponse()!.leads; track item.original_message.username) {
+          <div class="lead-card">
+
+            <div class="lead-header">
+              <span class="username">
+                <mat-icon inline>person_outline</mat-icon>
+                {{ item.original_message.username }}
+              </span>
+              <span class="spacer"></span>
+              <span class="timestamp">{{ item.original_message.timestamp }}</span>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="lead-section">
+              <span class="section-label">
+                <mat-icon inline>forum</mat-icon>
+                Wiadomość
+              </span>
+              <p class="section-text">{{ item.original_message.message }}</p>
+            </div>
+
+            <div class="lead-section reply-section">
+              <span class="section-label">
+                <mat-icon inline>reply</mat-icon>
+                Odpowiedź
+              </span>
+              <p class="section-text">{{ item.reply }}</p>
+            </div>
+
+            <div class="lead-actions">
+              <button mat-icon-button
+                [cdkCopyToClipboard]="item.reply"
+                matTooltip="Kopiuj odpowiedź"
+                matTooltipPosition="above">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            </div>
+
+          </div>
+          <mat-divider></mat-divider>
+        }
+      </div>
+    </mat-tab>
+
+    <!-- ─── TAB: NO LEADS ─── -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">remove_circle_outline</mat-icon>
+        Bez potencjału
+        <mat-chip class="tab-chip" highlighted>
+          {{ graphResponse()!.no_leads.length }}
+        </mat-chip>
+      </ng-template>
+
+      <div class="tab-content">
+        @for (item of graphResponse()!.no_leads; track item.original_message.username) {
+          <div class="lead-card no-lead-card">
+
+            <div class="lead-header">
+              <span class="username">
+                <mat-icon inline>person_outline</mat-icon>
+                {{ item.original_message.username }}
+              </span>
+              <span class="spacer"></span>
+              <span class="timestamp">{{ item.original_message.timestamp }}</span>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="lead-section">
+              <span class="section-label">
+                <mat-icon inline>forum</mat-icon>
+                Wiadomość
+              </span>
+              <p class="section-text">{{ item.original_message.message }}</p>
+            </div>
+
+            <div class="lead-section reply-section">
+              <span class="section-label">
+                <mat-icon inline>reply</mat-icon>
+                Odpowiedź
+              </span>
+              <p class="section-text">{{ item.reply }}</p>
+            </div>
+
+            <div class="lead-actions">
+              <button mat-icon-button
+                [cdkCopyToClipboard]="item.reply"
+                matTooltip="Kopiuj odpowiedź"
+                matTooltipPosition="above">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            </div>
+
+          </div>
+          <mat-divider></mat-divider>
+        }
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

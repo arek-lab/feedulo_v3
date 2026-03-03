@@ -1,0 +1,78 @@
+<app-feature-header 
+  [title]="'Sematyczna wyszukiwarka Loveable dev docs'"
+  [description]="'Zapytaj o temat, który Cię interesuje, dostaniesz odpoiwiedź LLM wspieraną bazą danych.'" />
+
+  @if (credits()<1) {
+    <app-credits-error />
+}
+
+<form 
+    [formGroup]="dataForm" 
+    (ngSubmit)="onSubmit()" 
+    #formDirective="ngForm"
+    [class.hide]="responseData()" >
+
+     <mat-form-field 
+        appearance="outline"
+        >
+        <mat-label><span class="label-field">Wpisz swoje zapytanie, np jak połączyć się z Supabase, itp.</span></mat-label>
+        <textarea
+            formControlName="userQuery"
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="3"></textarea>
+        @if(isLoading()){
+            <div class="feature-loader">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+        }
+        <div style="text-align: right;">
+            <button 
+                matMiniFab aria-label="Submit button"
+                type="submit"
+                [disabled]="dataForm.invalid || isLoading() || credits()<1">
+                <mat-icon>send</mat-icon>
+            </button>
+        </div> 
+     </mat-form-field>    
+
+</form>
+
+<div class="response-container" [class.hide]="!responseData()">
+  <div class="response">
+      @if (responseData()) {
+        <div class="response-wrapper">
+          <div
+            class="flex response-header"
+          >
+            <h6>Odpowiedź wyszukiwarki</h6>
+            @if (!copied()) {
+              <button matIconButton (click)="copyToClipboard()">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            } @else {
+            <div>
+              <span class="copied">skopiowane</span>
+              <button matIconButton disabled>
+                <mat-icon>check</mat-icon>
+              </button>
+            </div>
+            }
+          </div>
+          <hr >
+          <!-- <div class="query">
+            Twoje zapytanie: <span class="confidence-number">{{ responseData()?.query }}</span>
+          </div> -->
+          <div class="feedback-content">
+            <markdown [data]="responseData()?.response"></markdown>
+          </div>
+        </div>
+      }
+  </div>
+  <div class="action-buttons">
+    <button matButton="filled" (click)="startNewQuery()">
+        <mat-icon>abc</mat-icon>
+        Nowe wyszukiwanie
+    </button>
+  </div>
+</div>

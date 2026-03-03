@@ -1,0 +1,92 @@
+<div class="landing-wrapper">
+
+  <!-- HERO -->
+  <div class="hero-section">
+    <h1 class="mat-display-1">Odpowiadaj szybciej. Sprzedawaj mądrzej.</h1>
+    <p class="mat-subtitle-1 hero-sub">
+      Dwa narzędzia stworzone dla wsparcia kanału Lovable — znajdź odpowiedzi w dokumentacji lub generuj
+      gotowe odpowiedzi na Discordzie w kilka sekund.
+    </p>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards-section">
+
+    <!-- CARD 1: Lovi Lens -->
+    <mat-card class="feature-card">
+      <mat-card-header>
+        <div mat-card-avatar class="card-icon">
+          <mat-icon>manage_search</mat-icon>
+        </div>
+        <mat-card-title>Lovi Lens</mat-card-title>
+        <mat-card-subtitle>Semantyczne wyszukiwanie dokumentacji</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="main-description">
+          Przeszukuj <strong>dokumentację Lovable semantycznie</strong> — pytaj w dowolnym języku
+          i otrzymuj najtrafniejsze odpowiedzi natychmiast. Koniec z ręcznym przeszukiwaniem stron.
+        </p>
+        <div class="features-list">
+          <div class="feature-item">
+            <mat-icon color="primary">language</mat-icon>
+            <span>Wielojęzyczność — pytaj po polsku, angielsku lub w dowolnym innym języku</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon color="primary">auto_awesome</mat-icon>
+            <span>Wyszukiwanie semantyczne rozumie znaczenie, nie tylko słowa kluczowe</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon color="primary">speed</mat-icon>
+            <span>Znajdź odpowiednią sekcję dokumentacji w kilka sekund</span>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button matButton  [routerLink]="['/','app', 'lovi-lens']">
+          <mat-icon>arrow_forward</mat-icon>
+          Otwórz Lovi Lens
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- CARD 2: Reply Forge -->
+    <mat-card class="feature-card">
+      <mat-card-header>
+        <div mat-card-avatar class="card-icon">
+          <mat-icon>bolt</mat-icon>
+        </div>
+        <mat-card-title>Reply Forge</mat-card-title>
+        <mat-card-subtitle>Generator odpowiedzi na Discordzie</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="main-description">
+          Skopiuj rozmowę z Discorda za pomocą <kbd>Ctrl+A</kbd> → <kbd>Ctrl+C</kbd>, zapisz jako
+          <kbd>.txt</kbd> i załącz tutaj — otrzymaj listę
+          <strong>gotowych odpowiedzi sprzedażowych w zaledwie dwóch krokach</strong>.
+        </p>
+        <div class="features-list">
+          <div class="feature-item">
+            <mat-icon color="primary">upload_file</mat-icon>
+            <span>Proste wgrywanie pliku .txt — bez wklejania do formularzy</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon color="primary">forum</mat-icon>
+            <span>Odpowiedzi dopasowane do kontekstu rozmowy na Discordzie</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon color="primary">checklist</mat-icon>
+            <span>Wszystkie odpowiedzi gotowe w kilka sekund</span>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button matButton color="primary"  [routerLink]="['/','app', 'reply-forge']">
+          <mat-icon>arrow_forward</mat-icon>
+          Otwórz Reply Forge
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+
+</div>

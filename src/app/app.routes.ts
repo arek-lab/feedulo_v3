@@ -9,6 +9,9 @@ import { CvUpgrader } from './features/cv-upgrader/cv-upgrader';
 import { Auth } from './auth/auth/auth';
 import { authGuard } from './auth/auth.guard';
 import { TextCraft } from './features/text-craft/text-craft';
+import { LovableTools } from './features/loveable-tools/lovable-tools';
+import { LoviLens } from './features/loveable-tools/lovi-lens/lovi-lens';
+import { ReplyForge } from './features/loveable-tools/reply-forge/reply-forge';
 
 export const routes: Routes = [
   // ===== PUBLIC =====
@@ -31,7 +34,10 @@ export const routes: Routes = [
       { path: 'feedbacks', component: Feedbacks },
       { path: 'email-generator', component: EmailGenerator },
       { path: 'cv-upgrader', component: CvUpgrader },
-      { path: 'text-craft', component: TextCraft }
+      { path: 'text-craft', component: TextCraft },
+      { path: 'loveable-tools', component: LovableTools },
+      { path: 'lovi-lens', component: LoviLens },
+      { path: 'reply-forge', component: ReplyForge }
     ],
   },
   { path: '**', redirectTo: '' },
