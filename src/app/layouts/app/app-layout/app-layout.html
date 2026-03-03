@@ -28,8 +28,12 @@
         <mat-icon matListItemIcon>business_center</mat-icon>
         <span matListItemTitle>Apps</span>
       </a>
+      <a mat-list-item [routerLink]="['/','app', 'loveable-tools']">
+        <mat-icon matListItemIcon class="logo-color">favorite</mat-icon>
+        <span matListItemTitle class="logo-color">Loveable Tools</span>
+      </a>
       <a mat-list-item [routerLink]="['/','app', 'feedbacks']">
-        <mat-icon matListItemIcon>rocket_launchr</mat-icon>
+        <mat-icon matListItemIcon>rocket_launch</mat-icon>
         <span matListItemTitle>Feedback Generator</span>
       </a>
       <a mat-list-item [routerLink]="['/','app', 'email-generator']">
